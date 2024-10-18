@@ -106,7 +106,7 @@ a {
 body {
     margin: 0px;
     background-color: var(--bg-color);
-    background-image: url('assets/Backround-Sprinkles.png');
+    background-image: url('assets/backroundSprinkles.png');
     background-repeat:repeat;
     background-size: 300px;
 }
