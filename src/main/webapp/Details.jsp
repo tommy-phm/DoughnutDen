@@ -3,11 +3,35 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <html>
 <head>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="styles.css">
     <title>DonutDen</title> <!-- Itles the tab-->
     <link rel="icon" href="assets/Donut-Icon.png" type="image/png" /> <!-- this gives the icon to a tab-->
 </head>
 <body>
+    <!-- HEADER -------------------------------------------------------------->
+    <header class="headerBanner">
+        <h1 class="headerMain"> <!-- The title of tha displayed Page-->
+          <a href="Menu.jsp">
+               <img src="assets/Donut-Icon.png" alt="Icon for DonutDen" width=50px/>
+          </a>
+          Donut Den
+        </h1>
+    
+        <h3 class="headerSub">
+            <!-- Drop-down menu ----------------------->
+            <div class="nav-dropdown">
+              <button>Dropdown</button>
+              <div class="dropdown-content">
+                <a href="TODO">Storefront</a>
+                <a href="TODO">Employee Portal</a>
+                <a href="TODO">About US</a>
+              </div>
+            </div> 
+        </h3>
+    </header>
+
+
+    <!-- BODY ---------------------------------------------------------------->
     <h1><%= doughnut.getName() %></h1>
     <%
         List<Doughnut> doughnuts = Doughnut.getDoughnuts();
