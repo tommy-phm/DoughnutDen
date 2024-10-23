@@ -12,7 +12,7 @@
     <header class="headerBanner">
         <h1 class="headerMain"> <!-- The title of tha displayed Page-->
           <a href="Menu.jsp">
-               <img src="assets/Donut-Icon.png" alt="Icon for DonutDen" width=50px/>
+               <img src="images/Donut-Icon.png" alt="Icon for DonutDen" width=50px/>
           </a>
           Donut Den
         </h1>
