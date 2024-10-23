@@ -9,7 +9,7 @@
 
     <!-- Welcome file configuration -->
     <welcome-file-list>
-        <welcome-file>Home.jsp</welcome-file>
+        <welcome-file>Menu.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>
