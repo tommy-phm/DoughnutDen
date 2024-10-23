@@ -4,6 +4,8 @@
 <html>
 <head>
 	<link rel="stylesheet" href="style.css">
+    <title>DonutDen</title> <!-- Itles the tab-->
+    <link rel="icon" href="assets/Donut-Icon.png" type="image/png" /> <!-- this gives the icon to a tab-->
 </head>
 <body>
     <h1>Welcome to the Doughnut Store</h1>

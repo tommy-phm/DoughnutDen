@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="store.Doughnut" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <html>
 <head>
-    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
     <title>DonutDen</title> <!-- Itles the tab-->
     <link rel="icon" href="assets/Donut-Icon.png" type="image/png" /> <!-- this gives the icon to a tab-->
 </head>
 <body>
-    <h1>Doughnut Menu</h1>
+    <h1><%= doughnut.getName() %></h1>
     <%
         List<Doughnut> doughnuts = Doughnut.getDoughnuts();
     %>
