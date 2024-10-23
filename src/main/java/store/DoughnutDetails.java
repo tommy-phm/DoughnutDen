@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/DoughnutDetails")
-public class s4 extends HttpServlet {
+public class DoughnutDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,7 +48,3 @@ public class s4 extends HttpServlet {
 	}
 
 }
-
-
-
-
