@@ -21,7 +21,7 @@ public class DoughnutDetails extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public s4() {
+    public DoughtnutDetails() {
         super();
         // TODO Auto-generated constructor stub
     }
