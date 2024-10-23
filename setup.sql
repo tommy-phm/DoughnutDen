@@ -4,7 +4,8 @@ CREATE TABLE Doughnuts (
     Description VARCHAR(255) NOT NULL,
     Price DECIMAL(4, 2) NOT NULL,
     Status BOOLEAN NOT NULL,
-    ImageName VARCHAR(32) NOT NULL
+    ImageName VARCHAR(32) NOT NULL,
+    Category VARCHAR(32) NOT NULL
 );
 
 CREATE TABLE Trays (
@@ -33,12 +34,12 @@ CREATE TABLE TractionDetails (
 
 INSERT INTO Doughnuts (Name, Description, Price, Status)
 VALUES 
-('Glazed Raised', 'A fluffy raised doughnut covered in a sweet, shiny glaze.', 93.68, True, 'Glazed.png'),
-('Sugar Raised', 'A light and airy raised doughnut rolled in sugar for a sweet crunch.', 82.58, True, 'Sugar.png'),
-('Chocolate Raised', 'A decadent raised doughnut topped with rich chocolate icing.', 71.34, True, 'Chocolate.png'),
-('Plain Cake', 'A classic cake doughnut, soft and lightly sweetened for a comforting taste.', 69.90, True, 'PlainCake.png'),
-('Chocolate Cake', 'A moist and chocolatey cake doughnut, perfect for chocolate lovers.', 93.32, True, 'ChocolateCake.png'),
-('Sugar Cake', 'A sweet cake doughnut dusted with granulated sugar for extra sweetness.', 86.75, True, 'SugarCake.png'),
-('Lemon Filled', 'A zesty filled doughnut bursting with fresh lemon curd.', 74.43, True, 'LemonFilled.png'),
-('Grape Filled', 'A delightful filled doughnut with a sweet grape jam center.', 61.14, True, 'GrapeFilled.png'),
-('Custard Filled', 'A creamy filled doughnut with rich vanilla custard for a classic treat.', 89.93, True 'CustardFilled.png');
+('Glazed Raised', 'A fluffy raised doughnut covered in a sweet, shiny glaze.', 93.68, True, 'Glazed.png', 'Raised'),
+('Sugar Raised', 'A light and airy raised doughnut rolled in sugar for a sweet crunch.', 82.58, True, 'Sugar.png', 'Raised'),
+('Chocolate Raised', 'A decadent raised doughnut topped with rich chocolate icing.', 71.34, True, 'Chocolate.png', 'Raised'),
+('Plain Cake', 'A classic cake doughnut, soft and lightly sweetened for a comforting taste.', 69.90, True, 'PlainCake.png', 'Cake'),
+('Chocolate Cake', 'A moist and chocolatey cake doughnut, perfect for chocolate lovers.', 93.32, True, 'ChocolateCake.png', 'Cake'),
+('Sugar Cake', 'A sweet cake doughnut dusted with granulated sugar for extra sweetness.', 86.75, True, 'SugarCake.png', 'Cake'),
+('Lemon Filled', 'A zesty filled doughnut bursting with fresh lemon curd.', 74.43, True, 'LemonFilled.png', 'Filled'),
+('Grape Filled', 'A delightful filled doughnut with a sweet grape jam center.', 61.14, True, 'GrapeFilled.png', 'Filled'),
+('Custard Filled', 'A creamy filled doughnut with rich vanilla custard for a classic treat.', 89.93, True 'CustardFilled.png', 'Filled');
