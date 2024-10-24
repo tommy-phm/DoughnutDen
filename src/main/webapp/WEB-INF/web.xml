@@ -7,9 +7,20 @@
 
     <display-name>Donut Store</display-name>
 
-    <!-- Welcome file configuration -->
+    <!-- Home -->
     <welcome-file-list>
         <welcome-file>Menu.jsp</welcome-file>
     </welcome-file-list>
 
+    <!-- Mapping for Doughnut Details -->
+    <servlet>
+        <servlet-name>DoughnutServlet</servlet-name>
+        <jsp-file>/Doughnut.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DoughnutServlet</servlet-name>
+        <url-pattern>/Doughnut/*</url-pattern>
+    </servlet-mapping>
+	
 </web-app>

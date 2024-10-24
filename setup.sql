@@ -1,11 +1,16 @@
+CREATE TABLE Category (
+    CategoryID TINYINT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(32) NOT NULL
+);
+
 CREATE TABLE Doughnuts (
     DoughnutID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(32) NOT NULL,
     Description VARCHAR(255) NOT NULL,
     Price DECIMAL(4, 2) NOT NULL,
     Status BOOLEAN NOT NULL,
-    ImageName VARCHAR(32) NOT NULL,
-    Category VARCHAR(32) NOT NULL
+    CategoryID TINYINT NOT NULL,
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
 );
 
 CREATE TABLE Trays (
@@ -32,14 +37,20 @@ CREATE TABLE TractionDetails (
     FOREIGN KEY (DoughnutID) REFERENCES Doughnuts(DoughnutID)
 );
 
-INSERT INTO Doughnuts (Name, Description, Price, Status)
+INSERT INTO Category (Name)
 VALUES 
-('Glazed Raised', 'A fluffy raised doughnut covered in a sweet, shiny glaze.', 93.68, True, 'Glazed.png', 'Raised'),
-('Sugar Raised', 'A light and airy raised doughnut rolled in sugar for a sweet crunch.', 82.58, True, 'Sugar.png', 'Raised'),
-('Chocolate Raised', 'A decadent raised doughnut topped with rich chocolate icing.', 71.34, True, 'Chocolate.png', 'Raised'),
-('Plain Cake', 'A classic cake doughnut, soft and lightly sweetened for a comforting taste.', 69.90, True, 'PlainCake.png', 'Cake'),
-('Chocolate Cake', 'A moist and chocolatey cake doughnut, perfect for chocolate lovers.', 93.32, True, 'ChocolateCake.png', 'Cake'),
-('Sugar Cake', 'A sweet cake doughnut dusted with granulated sugar for extra sweetness.', 86.75, True, 'SugarCake.png', 'Cake'),
-('Lemon Filled', 'A zesty filled doughnut bursting with fresh lemon curd.', 74.43, True, 'LemonFilled.png', 'Filled'),
-('Grape Filled', 'A delightful filled doughnut with a sweet grape jam center.', 61.14, True, 'GrapeFilled.png', 'Filled'),
-('Custard Filled', 'A creamy filled doughnut with rich vanilla custard for a classic treat.', 89.93, True 'CustardFilled.png', 'Filled');
+('Raised'),
+('Cake'),
+('Filled');
+
+INSERT INTO Doughnuts (Name, Description, Price, Status, CategoryID)
+VALUES 
+('Glazed', 'A fluffy raised doughnut covered in a sweet, shiny glaze.', 93.68, TRUE, 1),
+('Sugar', 'A light and airy raised doughnut rolled in sugar for a sweet crunch.', 82.58, TRUE, 1),
+('Chocolate', 'A decadent raised doughnut topped with rich chocolate icing.', 71.34, TRUE, 1),
+('Plain', 'A classic cake doughnut, soft and lightly sweetened for a comforting taste.', 69.90, TRUE, 2),
+('Chocolate', 'A moist and chocolatey cake doughnut, perfect for chocolate lovers.', 94.32, TRUE, 2),
+('Sugar', 'A sweet cake doughnut dusted with granulated sugar for extra sweetness.', 86.75, TRUE, 2),
+('Lemon', 'A zesty filled doughnut bursting with fresh lemon curd.', 74.43, TRUE, 3),
+('Grape', 'A delightful filled doughnut with a sweet grape jam center.', 61.14, TRUE, 3),
+('Custard', 'A creamy filled doughnut with rich vanilla custard for a classic treat.', 75.45, TRUE, 3); 

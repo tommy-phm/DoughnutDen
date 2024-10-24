@@ -13,6 +13,7 @@
                <img src="images/Donut-Icon.png" alt="Icon for DonutDen" width=50px/>
           </a>
           Donut Den
+          Donut Dem
         </h1>
     
         <h3 class="headerSub">
