@@ -1,4 +1,11 @@
 <%@ page import="store.Doughnut" %>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>DoughnutDen</title>
+    <link rel="icon" href="assets/Doughnut-Icon.png" type="image/png" />
+</head>
+<body>
 <%
     String pathInfo = request.getPathInfo(); 
     int doughnutId = 0;
@@ -17,13 +24,17 @@
 
     if (doughnut != null) {
 %>
-		<td><img src="../images/<%= doughnut.getId() %>.png"></td>
+		<img src="../images/<%= doughnut.getId() %>.png" 
+             onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='inline';">
+        <span style="display:none;">No Image</span>
         <h1><%= doughnut.getName() %></h1>
         <p><strong>Description:</strong> <%= doughnut.getDescription() %></p>
         <p><strong>Price:</strong> $<%= doughnut.getPrice() %></p>
-        <p><strong>Status:</strong> <%= doughnut.getStatus() ? "Available" : "Unavailable" %></p>
+        <p><strong>Category:</strong> <%= doughnut.getCategoryName() %></p>
 <%
     } else {
         out.println("<p>Doughnut not found.</p>");
     }
 %>
+</body>
+</html>

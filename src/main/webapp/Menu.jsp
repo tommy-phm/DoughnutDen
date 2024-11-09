@@ -4,8 +4,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="styles.css">
-    <title>DonutDen</title> <!-- Titles the tab-->
-    <link rel="icon" href="assets/Donut-Icon.png" type="image/png" /> <!-- this gives the icon to a tab-->
+    <title>DoughnutDen</title>
+    <link rel="icon" href="assets/Doughnut-Icon.png" type="image/png" />
     <style>
         img {
             max-width: 100px;
@@ -16,17 +16,15 @@
     </style>
 </head>
 <body>
-    <!-- HEADER -------------------------------------------------------------->
     <header class="headerBanner">
-        <h1 class="headerMain"> <!-- The title of the displayed Page-->
+        <h1 class="headerMain">
           <a href="Menu.jsp">
-               <img src="images/Donut-Icon.png" alt="Icon for DonutDen" width="50" />
+               <img src="images/Doughnut-Icon.png" alt="Icon for DoughnutDen" width="50" />
           </a>
-          Donut Den
+          Doughnut Den
         </h1>
     
         <h3 class="headerSub">
-            <!-- Drop-down menu ----------------------->
             <div class="nav-dropdown">
               <button>Dropdown</button>
               <div class="dropdown-content">
@@ -38,8 +36,7 @@
         </h3>
     </header>
 
-    <!-- BODY ---------------------------------------------------------------->
-    <h1>Doughnut Menu</h1>
+    <h1>Menu</h1>
     <%
         List<Doughnut> doughnuts = Doughnut.getDoughnuts();
     %>
@@ -50,21 +47,27 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>Category </th>
+                <th>Category</th>
             </tr>
         </thead>
         <tbody>
             <%
                 for (Doughnut doughnut : doughnuts) {
+                    if (doughnut.getStatus()) {
             %>
             <tr>
-                <td><img src="images/<%= doughnut.getId() %>.png"></td>
+                <td>
+                    <img src="images/<%= doughnut.getId() %>.png" 
+                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span style="display:none;">No Image</span>
+                </td>
                 <td><a href="Doughnut/<%= doughnut.getId() %>"><%= doughnut.getName() %></a></td>
                 <td><%= doughnut.getDescription() %></td>
                 <td>$<%= String.format("%.2f", doughnut.getPrice()) %></td>
-                <td><%= doughnut.getCategory() %></td>
+                <td><%= doughnut.getCategoryName() %></td>
             </tr>
             <%
+                    }
                 }
             %>
         </tbody>

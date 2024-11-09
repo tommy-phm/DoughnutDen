@@ -5,7 +5,7 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>Donut Store</display-name>
+    <display-name>Doughnut Store</display-name>
 
     <!-- Home -->
     <welcome-file-list>
@@ -22,5 +22,7 @@
         <servlet-name>DoughnutServlet</servlet-name>
         <url-pattern>/Doughnut/*</url-pattern>
     </servlet-mapping>
+    
+    
 	
 </web-app>
