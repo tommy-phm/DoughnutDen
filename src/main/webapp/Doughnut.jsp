@@ -24,10 +24,10 @@
 
     if (doughnut != null) {
 %>
-		<img src="../images/<%= doughnut.getId() %>.png" 
-             onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='inline';">
-        <span style="display:none;">No Image</span>
-        <h1><%= doughnut.getName() %></h1>
+	<img src="../images/<%=doughnut.getId()%>.png"
+		onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='inline';">
+	<span style="display: none;">No Image</span>
+	<h1><%=doughnut.getName()%></h1>
         <p><strong>Description:</strong> <%= doughnut.getDescription() %></p>
         <p><strong>Price:</strong> $<%= doughnut.getPrice() %></p>
         <p><strong>Category:</strong> <%= doughnut.getCategoryName() %></p>
