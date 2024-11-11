@@ -5,7 +5,6 @@
 <%@ page import="store.Doughnut" %>
 
 <%
-    HttpSession session = request.getSession();
     List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
     
     Map<Doughnut, Integer> doughnutQuantities = new HashMap<>();
