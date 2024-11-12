@@ -19,6 +19,33 @@
             }
         }
     }
+    
+ // Handle removing a doughnut from the cart
+    String doughnutIdToRemove = request.getParameter("doughnutId");
+    if (doughnutIdToRemove != null) {
+        int idToRemove = Integer.parseInt(doughnutIdToRemove);
+        
+        // Iterate over the cart and remove the doughnut with the given ID
+        for (int i = 0; i < cart.size(); i++) {
+            Doughnut d = cart.get(i);
+            if (d.getId() == idToRemove) {
+                // Remove the doughnut from the cart
+                cart.remove(i);
+                break;
+            }
+        }
+
+        // Rebuild the doughnutQuantities map after removal
+        doughnutQuantities.clear();
+        for (Doughnut d : cart) {
+            if (doughnutQuantities.containsKey(d)) {
+                doughnutQuantities.put(d, doughnutQuantities.get(d) + 1);
+            } else {
+                doughnutQuantities.put(d, 1);
+            }
+        }
+        session.setAttribute("cart", cart); // Update the session with the new cart
+    }
 %>
 
 <html>
@@ -50,13 +77,17 @@
                 <td>$<%= d.getPrice() %></td>
                 <td>$<%= String.format("%.2f", totalPrice) %></td>
                 <td>
-                    <form action="Cart" method="post" style="display:inline;">
+                      <form action="Cart" method="post" style="display:inline;">
                         <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
                         <button type="submit">Add</button>
                     </form>
-                    <form action="RemoveDoughnut" method="post" style="display:inline;">
+                    <form action="Cart" method="post" style="display:inline;">
                         <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
-                        <button type="submit">Remove</button>
+                        <button type="submit" name="remove" value="true">Remove One</button>
+                    </form>
+                    <form action="Cart" method="post" style="display:inline;">
+                        <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
+                        <button type="submit" name="removeAll" value="true">Remove All</button>
                     </form>
                 </td>
             </tr>
