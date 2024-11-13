@@ -4,6 +4,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="store.Doughnut" %>
 
+
 <%
     List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
     
@@ -49,10 +50,24 @@
 %>
 
 <html>
+
 <head>
+<link rel="stylesheet" href="styles.css">
     <title>Shopping Cart</title>
+    <h3 class="headerSub">
+        <div class="nav-dropdown">
+            <button>Dropdown</button>
+            <div class="dropdown-content">
+                <a href="Cart.jsp">View Cart</a>
+                <a href="TODO">Storefront</a>
+                <a href="TODO">Employee Portal</a>
+                <a href="TODO">About Us</a>
+            </div>
+        </div> 
+    </h3>
 </head>
 <body>
+	
     <h1>Your Cart</h1>
     <table border="1">
         <tr>
@@ -100,5 +115,10 @@
             <td></td>
         </tr>
     </table>
+    
+    <!-- Checkout Button -->
+    <form action="Receipt.jsp" method="post">
+        <button type="submit">Checkout</button>
+    </form>
 </body>
 </html>
