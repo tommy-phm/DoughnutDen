@@ -32,7 +32,7 @@
         <p><strong>Price:</strong> $<%= doughnut.getPrice() %></p>
         <p><strong>Category:</strong> <%= doughnut.getCategoryName() %></p>
 
-	<form action="CartServlet" method="post">
+	<form action="../Cart" method="post">
         <input type="hidden" name="doughnutId" value="<%= doughnut.getId() %>">
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" min="1" value="1" required>

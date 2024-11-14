@@ -26,8 +26,11 @@ img {
 			<div class="nav-dropdown">
 				<button>Dropdown</button>
 				<div class="dropdown-content">
-					<a href="TODO">Storefront</a> <a href="TODO">Employee Portal</a> <a
-						href="TODO">About US</a>
+					<a href="Cart.jsp">Cart</a>
+					<a href="MenuEdit.jsp">Menu Edit</a>
+					<a href="TrayEdit.jsp">Tray Edit</a>
+					<a href="TransactionEdit.jsp">Transaction Edit</a>
+					<a href="AboutUs.html">About US</a>
 				</div>
 			</div>
 		</h3>

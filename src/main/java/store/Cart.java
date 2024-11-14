@@ -13,7 +13,9 @@ import java.util.List;
 
 @WebServlet("/Cart")
 public class Cart extends HttpServlet {
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve doughnut ID and quantity from the request
         int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
