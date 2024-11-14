@@ -31,6 +31,13 @@
         <p><strong>Description:</strong> <%= doughnut.getDescription() %></p>
         <p><strong>Price:</strong> $<%= doughnut.getPrice() %></p>
         <p><strong>Category:</strong> <%= doughnut.getCategoryName() %></p>
+
+	<form action="CartServlet" method="post">
+        <input type="hidden" name="doughnutId" value="<%= doughnut.getId() %>">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+        <button type="submit">Add to Cart</button>
+    	</form>
 <%
     } else {
         out.println("<p>Doughnut not found.</p>");
