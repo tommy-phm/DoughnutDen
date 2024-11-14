@@ -17,6 +17,7 @@ public class Cart extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve doughnut ID and quantity from the request
         int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
 
         // Fetch doughnut details based on ID
         Doughnut selectedDoughnut = Doughnut.getDoughnutById(doughnutId);
@@ -24,15 +25,6 @@ public class Cart extends HttpServlet {
             response.sendRedirect("Menu.jsp");
             return;
         }
-        
-        Doughnut cartItem = new Doughnut(
-                selectedDoughnut.getId(),
-                selectedDoughnut.getName(),
-                selectedDoughnut.getDescription(),
-                selectedDoughnut.getPrice(),
-                selectedDoughnut.getStatus(),
-                selectedDoughnut.getCategory()
-            );
 
         // Retrieve or create the cart session attribute
         HttpSession session = request.getSession();
@@ -43,7 +35,18 @@ public class Cart extends HttpServlet {
         }
 
         // Add doughnut to cart
-        cart.add(cartItem);
+        for (int i = 0; i < quantity; i++) {
+            Doughnut cartItem = new Doughnut(
+                selectedDoughnut.getId(),
+                selectedDoughnut.getName(),
+                selectedDoughnut.getDescription(),
+                selectedDoughnut.getPrice(),
+                selectedDoughnut.getStatus(),
+                selectedDoughnut.getCategoryID(),
+                selectedDoughnut.getCategoryName()
+            );
+            cart.add(cartItem);
+        }
 
         // Redirect back to the menu or cart page
         response.sendRedirect("Menu.jsp");
