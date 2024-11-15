@@ -102,8 +102,6 @@ List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
             <td></td>
         </tr>
     </table>
-=======
->>>>>>> Stashed changes
     
     <div class="C-Container">
     	<div class="C-Content">
