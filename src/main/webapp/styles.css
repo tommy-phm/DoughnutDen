@@ -1,11 +1,12 @@
 :root { /* Page-Wide values for colors */
     --bg-color: #F7F9DC;
+    --bg-contrast-color: #f99f9b;
     --header-color: #d4fdf6;
     --layer1-color: #bcfcff;
     --layer2-color: #ffb1ea;
     --highlight-color: #d941ff;
-    --body-text-color: #4f3b10;
-    --header-text-color: #ffd900;
+    --body-text-color: #4rgb(28, 94, 90)
+    --header-text-color: rgb(215, 183, 0);
     --link-text-color: #ff0090;
 }
 
@@ -90,8 +91,8 @@
 /* ----------- BODY FORMATTING --------------------------------------- */
 .bodyBackround{
     background-color: var(--bg-color);
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 15%;
+    margin-right: 15%;
     display: inline-block;
     border-radius: 8px; 
 }
@@ -115,7 +116,7 @@ a {
 }
 
 body {
-    margin: 0px;
+    margin: 10%;
     background-color: var(--bg-color);
     background-image: url('images/backroundSprinkles.png');
     background-repeat:repeat;
@@ -141,3 +142,38 @@ p {
     text-align: center;
     color: var(--body-text-color);
 }
+
+/* DONUT DETAILS ---------------------------------------------------*/
+
+  .DD-Container{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    background: var(--bg-contrast-color) !important;
+    border-radius: 8px; /* Rounded corners */
+  }
+  
+  
+  .DD-ImageLeft {
+    height: 600px;
+    width: 600px;
+   
+  }
+
+  .DD-ImageLeft .DD-Image {
+    width: 600px;
+  }
+  
+  .DD-MiddleContent {
+  	width: 150px;
+  	Height: 600px;
+  	font-size: larger;
+  	color: var(--body-text-color) !important;
+  }
+  
+  .DD-RightContent {
+    height: 600px;
+    width: 200px;
+  }
+  
+  
