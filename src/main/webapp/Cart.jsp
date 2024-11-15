@@ -6,8 +6,15 @@
 
 
 <%
-    List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
-    
+List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
+	if (cart == null) {
+	    cart = new ArrayList<>();
+	    session.setAttribute("cart", cart);  
+        
+	}
+
+	
+	    
     Map<Doughnut, Integer> doughnutQuantities = new HashMap<>();
 
     if (cart != null) {
@@ -92,17 +99,9 @@
                 <td>$<%= d.getPrice() %></td>
                 <td>$<%= String.format("%.2f", totalPrice) %></td>
                 <td>
-                      <form action="Cart" method="post" style="display:inline;">
+                    <form action="RemoveDoughnut" method="post" style="display:inline;">
                         <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
-                        <button type="submit">Add</button>
-                    </form>
-                    <form action="Cart" method="post" style="display:inline;">
-                        <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
-                        <button type="submit" name="remove" value="true">Remove One</button>
-                    </form>
-                    <form action="Cart" method="post" style="display:inline;">
-                        <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
-                        <button type="submit" name="removeAll" value="true">Remove All</button>
+                        <button type="submit">Remove</button>
                     </form>
                 </td>
             </tr>
