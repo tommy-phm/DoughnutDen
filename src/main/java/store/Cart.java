@@ -13,11 +13,19 @@ import java.util.List;
 
 @WebServlet("/Cart")
 public class Cart extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	@Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve doughnut ID and quantity from the request
+        // Retrieve or create the cart session attribute
+        HttpSession session = request.getSession();
+        List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+            
+            
+        }
+        
+     // Retrieve doughnut ID and quantity from the request
         int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
@@ -26,14 +34,6 @@ public class Cart extends HttpServlet {
         if (selectedDoughnut == null) {
             response.sendRedirect("Menu.jsp");
             return;
-        }
-
-        // Retrieve or create the cart session attribute
-        HttpSession session = request.getSession();
-        List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ArrayList<>();
-            session.setAttribute("cart", cart);
         }
 
         // Add doughnut to cart
