@@ -201,6 +201,58 @@ p {
   	width: 200px;
   }
   
+  /* CART --------------------------------------------------------------------*/
+  
+  .C-Container{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    background: var(--bg-contrast-color) !important;
+    border-radius: 8px; /* Rounded corners */
+  }
+  
+  .C-Content{
+  	margin: 3px;
+  	display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--bg-contrast-color) !important;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
+  }
+  
+  .C-Item{
+  	display: flex;
+    flex-direction: row;
+    gap: 15px;
+    background: var(--bg-color) !important;
+    border-radius: 3px; /* Rounded corners */
+    justify-content: space-evenly;
+  }
+  
+  .C-DonutActions{
+  	display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .C-Button {
+      all: unset;
+      cursor: pointer;
+  }
+  
+  .C-Right{
+  	display: flex;
+  	margin: 15px;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+    
+ 
+  
+  
+  
   
   
   

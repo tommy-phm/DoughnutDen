@@ -61,21 +61,9 @@ List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
 <head>
 <link rel="stylesheet" href="styles.css">
     <title>Shopping Cart</title>
-    <h3 class="headerSub">
-        <div class="nav-dropdown">
-            <button>Dropdown</button>
-            <div class="dropdown-content">
-                <a href="Cart.jsp">View Cart</a>
-                <a href="TODO">Storefront</a>
-                <a href="TODO">Employee Portal</a>
-                <a href="TODO">About Us</a>
-            </div>
-        </div> 
-    </h3>
-</head>
 <body>
-	
     <h1>Your Cart</h1>
+<<<<<<< Updated upstream
     <table border="1">
         <tr>
             <th>Doughnut Name</th>
@@ -114,10 +102,58 @@ List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
             <td></td>
         </tr>
     </table>
+=======
+>>>>>>> Stashed changes
     
-    <!-- Checkout Button -->
-    <form action="Receipt.jsp" method="post">
-        <button type="submit">Checkout</button>
-    </form>
+    <div class="C-Container">
+    	<div class="C-Content">
+		    <%
+		    	double grandTotal = 1.0;
+		        for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
+		        	Doughnut d = entry.getKey();
+		            int quantity = entry.getValue();
+		            double totalPrice = d.getPrice() * quantity;
+		            grandTotal += totalPrice;
+		    %>
+		    <div class="C-Item">
+		    	<p><%= d.getName() %></p>
+		        <p><%= quantity %></p>
+		        <p>$<%= d.getPrice() %></p>
+		        <p>$<%= String.format("%.2f", totalPrice) %></p>
+		         
+		         <div class="C-DonutActions">
+		         	<form action="Cart" method="post">
+			            <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
+			            <button class="C-Button" onclick="submit()">
+  							<img src="/images/upArrow.png"/>
+						</button>
+		            </form>
+		            <form action="Cart" method="post">
+		                <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
+		                <button type="submit" name="remove" value="true"><img src="/images/DownArrow.png"></button>
+		            </form>
+		         </div>
+		         <form action="Cart" method="post">
+		            <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
+		            <button type="submit" name="removeAll" value="true">Remove All</button>
+		         </form>
+		    </div>
+		    <%
+		    	}
+		    %>
+    
+    	</div>  <!-- End of Content -->
+    
+        <div class="C-Right">
+            <h3 style="flex-direction: row;"><b>Grand Total:</b></h3>
+            <h3 style="flex-direction: row;">$<%= String.format("%.2f", grandTotal) %></h3>
+            
+            <!-- Checkout Button -->
+		    <form action="Receipt.jsp" method="post">
+		        <button type="submit"><img src="../images/Checkout_button"></button>
+		    </form>
+            
+        </div>
+    </div>
 </body>
 </html>
