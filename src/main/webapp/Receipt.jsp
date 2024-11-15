@@ -31,9 +31,7 @@
     
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/doughnutDen", "root", "1234");
-
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
         
      // Disable auto-commit for transaction management
         conn.setAutoCommit(false);
@@ -58,10 +56,6 @@
             transactionId = generatedKeys.getInt(1);  // Retrieve the auto-generated transaction ID
         }
         
-
-        String getDoughnutIDSQL = "SELECT DoughnutID FROM Doughnuts WHERE Name = ?";  // Adjust query as needed
-        psGetDoughnutID = conn.prepareStatement(getDoughnutIDSQL);
-
 
         for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
             Doughnut d = entry.getKey();
@@ -103,38 +97,43 @@
     <h1>Receipt</h1>
     <p>Transaction ID: <%= transactionId %></p>
     <p>Date: <%= currentDate %></p>
-    <table border="1">
-        <tr>
-            <th>Doughnut Name</th>
-            <th>Quantity</th>
-            <th>Price Each</th>
-            <th>Total Price</th>
-        </tr>
-        <%
-            for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
-                Doughnut d = entry.getKey();
-                int quantity = entry.getValue();
-                double totalPrice = d.getPrice() * quantity;
-        %>
-        <tr>
-            <td><%= d.getName() %></td>
-            <td><%= quantity %></td>
-            <td>$<%= d.getPrice() %></td>
-            <td>$<%= String.format("%.2f", totalPrice) %></td>
-        </tr>
-        <%
-            }
-        %>
-        <tr>
-            <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
-            <td>$<%= String.format("%.2f", grandTotal) %></td>
-        </tr>
-    </table>
-    
-    <!-- Back to Menu Button -->
-    <form action="Menu.jsp" method="get" style="margin-top:20px;">
-        <button type="submit">Back to Menu</button>
-    </form>
+    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 20px;">
+
+    <!-- Header Row -->
+    <div style="display: flex; width: 100%; justify-content: space-evenly; font-weight: bold; background-color: var(--layer1-color); padding: 10px; border-radius: 8px;">
+        <span style="flex: 1; text-align: center;">Doughnut Name</span>
+        <span style="flex: 1; text-align: center;">Quantity</span>
+        <span style="flex: 1; text-align: center;">Price Each</span>
+        <span style="flex: 1; text-align: center;">Total Price</span>
+    </div>
+
+    <!-- Doughnut Details -->
+    <% for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) { 
+        Doughnut d = entry.getKey();
+        int quantity = entry.getValue();
+        double totalPrice = d.getPrice() * quantity;
+    %>
+    <div style="display: flex; width: 100%; justify-content: space-evenly; background-color: var(--bg-color); padding: 10px; border-radius: 8px;">
+        <span style="flex: 1; text-align: center;"><%= d.getName() %></span>
+        <span style="flex: 1; text-align: center;"><%= quantity %></span>
+        <span style="flex: 1; text-align: center;">$<%= d.getPrice() %></span>
+        <span style="flex: 1; text-align: center;">$<%= String.format("%.2f", totalPrice) %></span>
+    </div>
+    <% } %>
+
+    <!-- Grand Total -->
+    <div style="display: flex; width: 100%; justify-content: space-evenly; font-weight: bold; background-color: var(--highlight-color); padding: 10px; border-radius: 8px; margin-top: 20px;">
+        <span style="flex: 3; text-align: right;">Grand Total:</span>
+        <span style="flex: 1; text-align: center;">$<%= String.format("%.2f", grandTotal) %></span>
+    </div>
+</div>
+
+<!-- Back to Menu Button -->
+<form action="Menu.jsp" method="get" style="margin-top: 20px; text-align: center;">
+    <button type="submit" style="background-color: var(--layer1-color); color: var(--body-text-color); padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.2em;">
+        Back to Menu
+    </button>
+</form>
 </body>
 </html>
 
