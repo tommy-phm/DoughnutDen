@@ -56,8 +56,6 @@
             transactionId = generatedKeys.getInt(1);  // Retrieve the auto-generated transaction ID
         }
         
-        String getDoughnutIDSQL = "SELECT DoughnutID FROM Doughnuts WHERE DoughnutName = ?";  // Adjust query as needed
-        psGetDoughnutID = conn.prepareStatement(getDoughnutIDSQL);
 
         for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
             Doughnut d = entry.getKey();
@@ -72,25 +70,17 @@
                 }
             }
             double totalPrice = d.getPrice() * quantity;
-            grandTotal += totalPrice;
-            
-         // Retrieve DoughnutID from the Doughnuts table
-            psGetDoughnutID.setString(1, d.getName());  // Assuming name is unique; adjust for other fields
-            rs = psGetDoughnutID.executeQuery();
-            int doughnutId = 0;
-            if (rs.next()) {
-                doughnutId = rs.getInt("DoughnutID");
-            }
+            grandTotal += totalPrice;           
 
             // Add entry to TransactionDetails
             psInsertTractionDetails.setInt(1, transactionId);
-            psInsertTractionDetails.setInt(2, doughnutId);
+            psInsertTractionDetails.setInt(2, d.getId());
             psInsertTractionDetails.setInt(3, quantity);
             psInsertTractionDetails.executeUpdate();
 
             // Update Trays with new FreshQty
             psUpdateTray.setInt(1, quantity);
-            psUpdateTray.setInt(2, doughnutId);
+            psUpdateTray.setInt(2, d.getId());
             psUpdateTray.executeUpdate();
         }
 
