@@ -31,7 +31,9 @@
     
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "password");
+
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/doughnutDen", "root", "1234");
+
         
      // Disable auto-commit for transaction management
         conn.setAutoCommit(false);
@@ -56,6 +58,10 @@
             transactionId = generatedKeys.getInt(1);  // Retrieve the auto-generated transaction ID
         }
         
+
+        String getDoughnutIDSQL = "SELECT DoughnutID FROM Doughnuts WHERE Name = ?";  // Adjust query as needed
+        psGetDoughnutID = conn.prepareStatement(getDoughnutIDSQL);
+
 
         for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
             Doughnut d = entry.getKey();
