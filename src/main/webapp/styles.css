@@ -177,3 +177,51 @@ p {
   }
   
   
+  
+  /* MENU ------------------------------------------------------------*/
+  
+  .M-Container{
+  	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .M-Card{
+  	margin: 3px;
+  	display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: var(--bg-contrast-color) !important;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
+  }
+  
+  .M-Image{
+  	width: 200px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

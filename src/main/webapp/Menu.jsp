@@ -40,35 +40,28 @@ img {
 	<%
 	List<Doughnut> doughnuts = Doughnut.getDoughnuts();
 	%>
-	<table>
-		<thead>
-			<tr>
-				<th>Image</th>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Price</th>
-				<th>Category</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
-			for (Doughnut doughnut : doughnuts) {
-				if (doughnut.getStatus()) {
-			%>
-			<tr>
-				<td><img src="images/<%= doughnut.getId() %>.png?timestamp=<%= System.currentTimeMillis() %>"
+	
+	
+	<div class="M-Container">
+	<%
+		for (Doughnut doughnut : doughnuts) {
+			if (doughnut.getStatus()) {
+	%>
+	
+		<div class="M-Card">
+			<a href="Doughnut/<%=doughnut.getId()%>">
+				<img class="M-Image" src="images/<%= doughnut.getId() %>.png?timestamp=<%= System.currentTimeMillis() %>"
 					onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='inline';">
-					<span style="display: none;">No Image</span></td>
-				<td><a href="Doughnut/<%=doughnut.getId()%>"><%=doughnut.getName()%></a></td>
-				<td><%=doughnut.getDescription()%></td>
-				<td>$<%=String.format("%.2f", doughnut.getPrice())%></td>
-				<td><%=doughnut.getCategoryName()%></td>
-			</tr>
-			<%
-			}
-			}
-			%>
-		</tbody>
-	</table>
+					<span style="display: none;">No Image</span>
+			</a>
+			<h4><a href="Doughnut/<%=doughnut.getId()%>"><%=doughnut.getName()%></a></h4>
+			<h4>$<%=String.format("%.2f", doughnut.getPrice())%></h4>
+			<h4><%=doughnut.getCategoryName()%></h4>
+		</div>
+	<%
+		}
+		}
+	%>			
+	</div>
 </body>
 </html>
