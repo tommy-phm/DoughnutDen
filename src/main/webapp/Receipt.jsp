@@ -23,54 +23,79 @@
     java.util.Date currentDate = new java.util.Date();
     
     Connection conn = null;
-    PreparedStatement psInsertTransaction = null;
-    PreparedStatement psInsertTransactionDetails = null;
+    PreparedStatement psInsertTraction = null;
+    PreparedStatement psInsertTractionDetails = null;
     PreparedStatement psUpdateTray = null;
+    PreparedStatement psGetDoughnutID = null;
+    ResultSet rs = null;
     
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/yourDatabase", "username", "password");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
+        
+     // Disable auto-commit for transaction management
+        conn.setAutoCommit(false);
 
         // Insert transaction into Transactions table
-        String transactionSQL = "INSERT INTO Transactions (Date, Status) VALUES (?, ?)";
-        psInsertTransaction = conn.prepareStatement(transactionSQL, Statement.RETURN_GENERATED_KEYS);
-        psInsertTransaction.setTimestamp(1, new java.sql.Timestamp(currentDate.getTime()));
-        psInsertTransaction.setBoolean(2, true);
-        psInsertTransaction.executeUpdate();
-
-        ResultSet generatedKeys = psInsertTransaction.getGeneratedKeys();
-        int transactionId = 0;
-        if (generatedKeys.next()) {
-            transactionId = generatedKeys.getInt(1);
-        }
+        String tractionSQL = "INSERT INTO Tractions (Date, Status) VALUES (?, ?)";
+        psInsertTraction = conn.prepareStatement(tractionSQL, Statement.RETURN_GENERATED_KEYS);
+        psInsertTraction.setTimestamp(1, new java.sql.Timestamp(currentDate.getTime()));
+        psInsertTraction.setBoolean(2, true);
+        psInsertTraction.executeUpdate();
 
         // Insert details into TransactionDetails table and update Trays table
-        String transactionDetailsSQL = "INSERT INTO TransactionDetails (TransactionID, DoughnutID, DoughnutQty) VALUES (?, ?, ?)";
-        psInsertTransactionDetails = conn.prepareStatement(transactionDetailsSQL);
+        String tractionDetailsSQL = "INSERT INTO TractionDetails (TractionID, DoughnutID, DoughnutQty) VALUES (?, ?, ?)";
+        psInsertTractionDetails = conn.prepareStatement(tractionDetailsSQL);
 
         String updateTraySQL = "UPDATE Trays SET FreshQty = FreshQty - ? WHERE DoughnutID = ?";
         psUpdateTray = conn.prepareStatement(updateTraySQL);
+        
+        ResultSet generatedKeys = psInsertTraction.getGeneratedKeys();
+        int transactionId = 0;
+        if (generatedKeys.next()) {
+            transactionId = generatedKeys.getInt(1);  // Retrieve the auto-generated transaction ID
+        }
+        
+        String getDoughnutIDSQL = "SELECT DoughnutID FROM Doughnuts WHERE DoughnutName = ?";  // Adjust query as needed
+        psGetDoughnutID = conn.prepareStatement(getDoughnutIDSQL);
 
         for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
             Doughnut d = entry.getKey();
             int quantity = entry.getValue();
+            String checkDoughnutSQL = "SELECT COUNT(*) FROM Doughnuts WHERE DoughnutID = ?";
+            try (PreparedStatement psCheckDoughnut = conn.prepareStatement(checkDoughnutSQL)) {
+                psCheckDoughnut.setInt(1, d.getId());
+                ResultSet rsCheck = psCheckDoughnut.executeQuery();
+                if (rsCheck.next() && rsCheck.getInt(1) == 0) {
+                    out.println("Error: DoughnutID " + d.getId() + " not found in Doughnuts table.");
+                    continue; // Skip this doughnut if not found
+                }
+            }
             double totalPrice = d.getPrice() * quantity;
             grandTotal += totalPrice;
+            
+         // Retrieve DoughnutID from the Doughnuts table
+            psGetDoughnutID.setString(1, d.getName());  // Assuming name is unique; adjust for other fields
+            rs = psGetDoughnutID.executeQuery();
+            int doughnutId = 0;
+            if (rs.next()) {
+                doughnutId = rs.getInt("DoughnutID");
+            }
 
             // Add entry to TransactionDetails
-            psInsertTransactionDetails.setInt(1, transactionId);
-            psInsertTransactionDetails.setInt(2, d.getId());
-            psInsertTransactionDetails.setInt(3, quantity);
-            psInsertTransactionDetails.executeUpdate();
+            psInsertTractionDetails.setInt(1, transactionId);
+            psInsertTractionDetails.setInt(2, doughnutId);
+            psInsertTractionDetails.setInt(3, quantity);
+            psInsertTractionDetails.executeUpdate();
 
             // Update Trays with new FreshQty
             psUpdateTray.setInt(1, quantity);
-            psUpdateTray.setInt(2, d.getId());
+            psUpdateTray.setInt(2, doughnutId);
             psUpdateTray.executeUpdate();
         }
 
         conn.commit();
-
+       
 %>
 
 <html>
@@ -121,10 +146,10 @@
     } catch (Exception e) {
         if (conn != null) conn.rollback();
         e.printStackTrace();
-        out.println("Error processing transaction.");
+        out.println("Error processing transaction."+e.getMessage());
     } finally {
-        if (psInsertTransaction != null) psInsertTransaction.close();
-        if (psInsertTransactionDetails != null) psInsertTransactionDetails.close();
+        if (psInsertTraction != null) psInsertTraction.close();
+        if (psInsertTractionDetails != null) psInsertTractionDetails.close();
         if (psUpdateTray != null) psUpdateTray.close();
         if (conn != null) conn.close();
     }
