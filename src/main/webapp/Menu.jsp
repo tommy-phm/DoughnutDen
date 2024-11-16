@@ -16,9 +16,6 @@ img {
 </style>
 </head>
 <body>
-
-
-
 	<header class="headerBanner">
 		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
@@ -26,8 +23,6 @@ img {
 			 	Doughnut Den
 			</a>
 		</h1>
-
-		
 		<a style="margin-left: 10%;" href="Menu.jsp">
 			<button class="nav-button">Menu</button>
 		</a>
@@ -43,21 +38,15 @@ img {
 			</div>
 		</div>
 		
-		<a href="Cart.jsp" style="float: right;"> 
-			<img src="images/cart.png" style=" width: 30px;" />
-			 	Doughnut Den
+		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
+			<img style=" width: 50px;" src="images/User_icon.png"/>
 		</a>
-		
-		
-		
+		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
+			<img style=" width: 50px;" src="images/cart.png"/>
+		</a>
 	</header>
 	
 	
-	
-	
-	
-	
-
 	<h1>Menu</h1>
 	<%
 	List<Doughnut> doughnuts = Doughnut.getDoughnuts();
