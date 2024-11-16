@@ -22,7 +22,6 @@
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="Tray.jsp">Tray</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
 				<a href="TransactionEdit.jsp">Transaction Edit</a>
 				<a href="Report.jsp">Report</a>
@@ -51,7 +50,7 @@
         </thead>
         <tbody>
             <%
-                List<Tray> trays = (List<Tray>) request.getAttribute("trays");
+                List<Tray> trays = Tray.getAllTrays();
                 for (Tray t : trays) {
             %>
             <tr>

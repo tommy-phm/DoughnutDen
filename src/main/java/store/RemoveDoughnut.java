@@ -1,26 +1,23 @@
 package store;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
 
 @WebServlet("/RemoveDoughnut")
 public class RemoveDoughnut extends HttpServlet {
-    
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/doughnutdb"; // Adjust database URL
-    private static final String DB_USER = "username"; // Replace with actual DB username
-    private static final String DB_PASSWORD = "password"; // Replace with actual DB password
+	private static final long serialVersionUID = 1L;
 
-    @Override
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
 
@@ -49,13 +46,13 @@ public class RemoveDoughnut extends HttpServlet {
 
     // Method to update doughnut quantity in the database
     private void updateDoughnutStock(int doughnutId) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "UPDATE doughnuts SET quantity = quantity + 1 WHERE id = ?";
+    	String sql = "UPDATE doughnuts SET quantity = quantity + 1 WHERE id = ?";
+        try (Connection connection = Database.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, doughnutId);
                 stmt.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace(); // Log or handle the exception
         }
     }

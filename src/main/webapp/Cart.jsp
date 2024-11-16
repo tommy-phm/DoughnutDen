@@ -3,12 +3,8 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="store.Doughnut" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="store.*"%>
 
 
 <%
@@ -21,7 +17,7 @@
         
         String insertSql = "INSERT INTO Doughnuts (name, description, price, status, categoryID, categoryName) VALUES (?, ?, ?, ?, ?, ?)";
         Connection conn = null;
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "1234");
+        conn = Database.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
             stmt.setString(1, "Test Donut");
             stmt.setString(2, "A sample donut for testing");
@@ -101,7 +97,6 @@
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="Tray.jsp">Tray</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
 				<a href="TransactionEdit.jsp">Transaction Edit</a>
 				<a href="Report.jsp">Report</a>

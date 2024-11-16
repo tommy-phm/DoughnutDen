@@ -3,7 +3,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="store.Doughnut" %>
+<%@ page import="store.*" %>
 
 <%
     List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
@@ -23,34 +23,34 @@
     java.util.Date currentDate = new java.util.Date();
     
     Connection conn = null;
-    PreparedStatement psInsertTraction = null;
-    PreparedStatement psInsertTractionDetails = null;
+    PreparedStatement psInsertTransaction = null;
+    PreparedStatement psInsertTransactionDetails = null;
     PreparedStatement psUpdateTray = null;
     PreparedStatement psGetDoughnutID = null;
     ResultSet rs = null;
     
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
+        conn = Database.getConnection();
         
      // Disable auto-commit for transaction management
         conn.setAutoCommit(false);
 
         // Insert transaction into Transactions table
-        String tractionSQL = "INSERT INTO Tractions (Date, Status) VALUES (?, ?)";
-        psInsertTraction = conn.prepareStatement(tractionSQL, Statement.RETURN_GENERATED_KEYS);
-        psInsertTraction.setTimestamp(1, new java.sql.Timestamp(currentDate.getTime()));
-        psInsertTraction.setBoolean(2, true);
-        psInsertTraction.executeUpdate();
+        String tractionSQL = "INSERT INTO Transactions (Date, Status) VALUES (?, ?)";
+        psInsertTransaction = conn.prepareStatement(tractionSQL, Statement.RETURN_GENERATED_KEYS);
+        psInsertTransaction.setTimestamp(1, new java.sql.Timestamp(currentDate.getTime()));
+        psInsertTransaction.setBoolean(2, true);
+        psInsertTransaction.executeUpdate();
 
         // Insert details into TransactionDetails table and update Trays table
-        String tractionDetailsSQL = "INSERT INTO TractionDetails (TractionID, DoughnutID, DoughnutQty) VALUES (?, ?, ?)";
-        psInsertTractionDetails = conn.prepareStatement(tractionDetailsSQL);
+        String tractionDetailsSQL = "INSERT INTO TransactionDetails (TransactionID, DoughnutID, DoughnutQty) VALUES (?, ?, ?)";
+        psInsertTransactionDetails = conn.prepareStatement(tractionDetailsSQL);
 
         String updateTraySQL = "UPDATE Trays SET FreshQty = FreshQty - ? WHERE DoughnutID = ?";
         psUpdateTray = conn.prepareStatement(updateTraySQL);
         
-        ResultSet generatedKeys = psInsertTraction.getGeneratedKeys();
+        ResultSet generatedKeys = psInsertTransaction.getGeneratedKeys();
         int transactionId = 0;
         if (generatedKeys.next()) {
             transactionId = generatedKeys.getInt(1);  // Retrieve the auto-generated transaction ID
@@ -73,10 +73,10 @@
             grandTotal += totalPrice;           
 
             // Add entry to TransactionDetails
-            psInsertTractionDetails.setInt(1, transactionId);
-            psInsertTractionDetails.setInt(2, d.getId());
-            psInsertTractionDetails.setInt(3, quantity);
-            psInsertTractionDetails.executeUpdate();
+            psInsertTransactionDetails.setInt(1, transactionId);
+            psInsertTransactionDetails.setInt(2, d.getId());
+            psInsertTransactionDetails.setInt(3, quantity);
+            psInsertTransactionDetails.executeUpdate();
 
             // Update Trays with new FreshQty
             psUpdateTray.setInt(1, quantity);
@@ -109,7 +109,6 @@
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="Tray.jsp">Tray</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
 				<a href="TransactionEdit.jsp">Transaction Edit</a>
 				<a href="Report.jsp">Report</a>
@@ -172,8 +171,8 @@
         e.printStackTrace();
         out.println("Error processing transaction."+e.getMessage());
     } finally {
-        if (psInsertTraction != null) psInsertTraction.close();
-        if (psInsertTractionDetails != null) psInsertTractionDetails.close();
+        if (psInsertTransaction != null) psInsertTransaction.close();
+        if (psInsertTransactionDetails != null) psInsertTransactionDetails.close();
         if (psUpdateTray != null) psUpdateTray.close();
         if (conn != null) conn.close();
     }

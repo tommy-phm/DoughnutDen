@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="store.*"%>
 
 <%
     // Database connection variables
@@ -14,12 +15,9 @@
     List<Boolean> transactionStatuses = new ArrayList<>();
 
     try {
-        // Load JDBC driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        // Establish connection
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/doughnut", "username", "password");
-        
+        // Establish connection using Database utility
+        conn = Database.getConnection();
+
         // Query to fetch all transactions
         String query = "SELECT TransactionID, Date, Status FROM Transactions";
         stmt = conn.createStatement();
@@ -34,9 +32,13 @@
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
-        if (rs != null) rs.close();
-        if (stmt != null) stmt.close();
-        if (conn != null) conn.close();
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 %>
 
@@ -61,7 +63,6 @@
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="Tray.jsp">Tray</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
 				<a href="TransactionEdit.jsp">Transaction Edit</a>
 				<a href="Report.jsp">Report</a>
@@ -109,7 +110,8 @@
         if ("POST".equalsIgnoreCase(request.getMethod())) {
             // Only process form submission if it's a POST request
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/doughnut", "username", "password");
+                
+                conn = Database.getConnection();
                 
                 // Prepare statement to update transaction status
                 String updateSQL = "UPDATE Transactions SET Status = ? WHERE TransactionID = ?";

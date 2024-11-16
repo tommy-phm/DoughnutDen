@@ -23,7 +23,6 @@
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="Tray.jsp">Tray</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
 				<a href="TransactionEdit.jsp">Transaction Edit</a>
 				<a href="Report.jsp">Report</a>
@@ -78,14 +77,14 @@
                     String query = "";
 
                     if ("transaction".equals(type)) {
-                        query = "SELECT td.TractionID, t.Data, t.Status " +
+                        query = "SELECT td.TransactionID, t.Data, t.Status " +
                                 "FROM tractiondetails td " +
-                                "JOIN tractions t ON td.TractionID = t.TractionID " +
+                                "JOIN transaction t ON td.TransactionID = t.TransactionID " +
                                 "WHERE t.Data BETWEEN ? AND ?";
                     } else if ("doughnut".equals(type)) {
-                        query = "SELECT td.TractionID, td.DoughnutID, td.DoughnutQty, t.Data, t.Status " +
+                        query = "SELECT td.TransactionID, td.DoughnutID, td.DoughnutQty, t.Data, t.Status " +
                                 "FROM tractiondetails td " +
-                                "JOIN tractions t ON td.TractionID = t.TractionID " +
+                                "JOIN transaction t ON td.TransactionID = t.TransactionID " +
                                 "WHERE t.Data BETWEEN ? AND ?";
                     }
 
@@ -119,7 +118,7 @@
 		<!-- Result Display -->
         <table border="1">
             <tr>
-                <th>Traction ID</th>
+                <th>Transaction ID</th>
                 <% if ("doughnut".equals(type)) { %>
                 <th>Doughnut ID</th>
                 <th>Doughnut Quantity</th>
@@ -131,7 +130,7 @@
         <%
             ///loop through the result set and display data in table
             while (rs.next()) {
-                int tractionID = rs.getInt("TractionID");
+                int tractionID = rs.getInt("TransactionID");
                 String data = rs.getString("Data");
                 String status = rs.getString("Status");
 

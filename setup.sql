@@ -22,18 +22,18 @@ CREATE TABLE Trays (
     FOREIGN KEY (DoughnutID) REFERENCES Doughnuts(DoughnutID)
 );
 
-CREATE TABLE Tractions (
-    TractionID INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Transactions (
+    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
     Date DATETIME NOT NULL,
     Status BOOLEAN NOT NULL
 );
 
-CREATE TABLE TractionDetails (
-    TractionID INT NOT NULL,
+CREATE TABLE TransactionDetails (
+    TransactionID INT NOT NULL,
     DoughnutID INT NOT NULL,
     DoughnutQty INT NOT NULL,
-    PRIMARY KEY (TractionID, DoughnutID),
-    FOREIGN KEY (TractionID) REFERENCES Tractions(TractionID),
+    PRIMARY KEY (TransactionID, DoughnutID),
+    FOREIGN KEY (TransactionID) REFERENCES Transactions(TransactionID),
     FOREIGN KEY (DoughnutID) REFERENCES Doughnuts(DoughnutID)
 );
 
@@ -53,4 +53,35 @@ VALUES
 ('Sugar', 'A sweet cake doughnut dusted with granulated sugar for extra sweetness.', 86.75, TRUE, 2),
 ('Lemon', 'A zesty filled doughnut bursting with fresh lemon curd.', 74.43, TRUE, 3),
 ('Grape', 'A delightful filled doughnut with a sweet grape jam center.', 61.14, TRUE, 3),
-('Custard', 'A creamy filled doughnut with rich vanilla custard for a classic treat.', 75.45, TRUE, 3); 
+('Custard', 'A creamy filled doughnut with rich vanilla custard for a classic treat.', 71.45, TRUE, 3),
+('Mint Toothpaste', 'A mint toothpaste stuffed doughnut with a refeshing and playful twist.', 85.94, TRUE, 3); 
+
+INSERT INTO Trays (DoughnutID, DateTime, TotalQty, FreshQty)
+VALUES
+(1, '1201-1-15 01:48:51', 50, 34),
+(2, '1853-7-15 22:35:16', 34, 21),
+(3, '1969-12-15 05:11:23', 8, 4),
+(4, '2002-6-15 03:21:38', 121, 2),
+(5, '2010-11-15 19:46:43', 84, 53),
+(6, '2016-4-15 08:25:26', 2, 1),
+(7, '2024-9-14 02:13:48', 23, 19),
+(8, '2024-11-15 17:54:13', 43, 1),
+(9, '2024-11-15 12:34:25', 6, 6);
+
+INSERT INTO Transactions (Date, Status)
+VALUES
+('1947-08-15 11:23:49', TRUE),
+('2024-03-29 9:43:51', TRUE),
+('2024-11-15 13:01:02', FALSE);
+
+INSERT INTO TransactionDetails (TransactionID, DoughnutID, DoughnutQty)
+VALUES
+(1, 1, 2),
+(1, 2, 9),
+(1, 3, 7),
+(2, 4, 12),
+(2, 5, 8),
+(2, 6, 6),
+(3, 7, 4),
+(3, 8, 38562),
+(3, 9, 1);
