@@ -16,25 +16,47 @@ img {
 </style>
 </head>
 <body>
+
+
+
 	<header class="headerBanner">
-		<h1 class="headerMain">
-			<a href="Menu.jsp"> <img src="images/Doughnut-Icon.png" width="50" />
-			</a> Doughnut Den
+		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+			<a href="Menu.jsp"> 
+				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
+			 	Doughnut Den
+			</a>
 		</h1>
 
-		<h3 class="headerSub">
-			<div class="nav-dropdown">
-				<button>Dropdown</button>
-				<div class="dropdown-content">
-					<a href="Cart.jsp">Cart</a>
-					<a href="MenuEdit.jsp">Menu Edit</a>
-					<a href="TrayEdit.jsp">Tray Edit</a>
-					<a href="TransactionEdit.jsp">Transaction Edit</a>
-					<a href="AboutUs.html">About US</a>
-				</div>
+		
+		<a style="margin-left: 10%;" href="Menu.jsp">
+			<button class="nav-button">Menu</button>
+		</a>
+		<div class="nav-dropdown">
+				
+		    <button class="nav-button">Staff Portal</button>
+			<div class="dropdown-content">
+				<a href="MenuEdit.jsp">Edit Menu</a>
+				<a href="Tray.jsp">Tray</a>
+				<a href="TrayEdit.jsp">Edit Tray</a>
+				<a href="TransactionEdit.jsp">Transaction Edit</a>
+				<a href="Report.jsp">Report</a>
 			</div>
-		</h3>
+		</div>
+		
+		<a href="Cart.jsp" style="float: right;"> 
+			<img src="images/cart.png" style=" width: 30px;" />
+			 	Doughnut Den
+		</a>
+		
+		
+		
 	</header>
+	
+	
+	
+	
+	
+	
 
 	<h1>Menu</h1>
 	<%

@@ -21,7 +21,7 @@
         
         String insertSql = "INSERT INTO Doughnuts (name, description, price, status, categoryID, categoryName) VALUES (?, ?, ?, ?, ?, ?)";
         Connection conn = null;
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "1234");
         try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
             stmt.setString(1, "Test Donut");
             stmt.setString(2, "A sample donut for testing");
