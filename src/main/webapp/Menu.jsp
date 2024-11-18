@@ -67,6 +67,14 @@ img {
 			<h4><a href="Doughnut/<%=doughnut.getId()%>"><%=doughnut.getName()%></a></h4>
 			<h4>$<%=String.format("%.2f", doughnut.getPrice())%></h4>
 			<h4><%=doughnut.getCategoryName()%></h4>
+			
+			<!-- Add to Cart Form -->
+            <form action="Cart" method="post">
+                <input type="hidden" name="doughnutId" value="<%= doughnut.getId() %>">
+                <label for="quantity-<%= doughnut.getId() %>">Quantity:</label>
+                <input type="number" id="quantity-<%= doughnut.getId() %>" name="quantity" class="quantity-input" value="1" min="1">
+                <button type="submit" class="nav-button">Add to Cart</button>
+            </form>
 		</div>
 	<%
 		}

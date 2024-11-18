@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="store.*"%>
 
 <%
     // Database connection variables
@@ -14,12 +15,9 @@
     List<Boolean> transactionStatuses = new ArrayList<>();
 
     try {
-        // Load JDBC driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        // Establish connection
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/doughnut", "username", "password");
-        
+        // Establish connection using Database utility
+        conn = Database.getConnection();
+
         // Query to fetch all transactions
         String query = "SELECT TransactionID, Date, Status FROM Transactions";
         stmt = conn.createStatement();
@@ -34,17 +32,51 @@
     } catch (Exception e) {
         e.printStackTrace();
     } finally {
-        if (rs != null) rs.close();
-        if (stmt != null) stmt.close();
-        if (conn != null) conn.close();
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 %>
 
 <html>
 <head>
     <title>Edit Transactions</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+	<header class="headerBanner">
+		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+			<a href="Menu.jsp"> 
+				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
+			 	Doughnut Den
+			</a>
+		</h1>
+		<a style="margin-left: 10%;" href="Menu.jsp">
+			<button class="nav-button">Menu</button>
+		</a>
+		<div class="nav-dropdown">
+				
+		    <button class="nav-button">Staff Portal</button>
+			<div class="dropdown-content">
+				<a href="MenuEdit.jsp">Edit Menu</a>
+				<a href="TrayEdit.jsp">Edit Tray</a>
+				<a href="TransactionEdit.jsp">Edit Transaction </a>
+				<a href="Report.jsp">Report</a>
+			</div>
+		</div>
+		
+		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
+			<img style=" width: 50px;" src="images/User_icon.png"/>
+		</a>
+		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
+			<img style=" width: 50px;" src="images/cart.png"/>
+		</a>
+	</header>
+	
     <h1>Transaction Edit Page</h1>
     <form action="TransactionEdit.jsp" method="post">
         <table border="1">
@@ -78,7 +110,8 @@
         if ("POST".equalsIgnoreCase(request.getMethod())) {
             // Only process form submission if it's a POST request
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/doughnut", "username", "password");
+                
+                conn = Database.getConnection();
                 
                 // Prepare statement to update transaction status
                 String updateSQL = "UPDATE Transactions SET Status = ? WHERE TransactionID = ?";

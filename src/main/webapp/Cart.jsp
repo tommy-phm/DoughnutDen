@@ -40,7 +40,7 @@
 	<header class="headerBanner">
 		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
-				<img src="../images/Doughnut-Icon.png" style=" width: 50px;" />
+				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
 			 	Doughnut Den
 			</a>
 		</h1>
@@ -53,16 +53,16 @@
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Transaction Edit</a>
+				<a href="TransactionEdit.jsp">Edit Transaction </a>
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>
 		
 		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="../images/User_icon.png"/>
+			<img style=" width: 50px;" src="images/User_icon.png"/>
 		</a>
 		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="../images/cart.png"/>
+			<img style=" width: 50px;" src="images/cart.png"/>
 		</a>
 	</header>
 <body>
@@ -92,7 +92,6 @@
                     double totalPrice = d.getPrice() * quantity;
                     grandTotal += totalPrice;
         %>
-        System.out.println("Doughnut ID: " + doughnutId + ", Quantity: " + quantity);
         <div style="display: flex; justify-content: space-between; padding: 10px; background-color: var(--bg-color); border-radius: 4px;">
             <div style="flex: 2;"><%= d.getName() %></div>
             <div style="flex: 1; text-align: center;"><%= quantity %></div>
@@ -107,7 +106,6 @@
         </div>
         <%
             }
-                
             }
         %>
 
