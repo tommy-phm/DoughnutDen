@@ -46,6 +46,35 @@
 <head>
     <title>Edit Transactions</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        h1 {
+            text-align: center;
+        }
+    	table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f99f9b;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
 	<header class="headerBanner">
@@ -70,10 +99,10 @@
 		</div>
 		
 		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="../images/User_icon.png"/>
+			<img style=" width: 50px;" src="images/User_icon.png"/>
 		</a>
 		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="../images/cart.png"/>
+			<img style=" width: 50px;" src="images/cart.png"/>
 		</a>
 	</header>
 	
