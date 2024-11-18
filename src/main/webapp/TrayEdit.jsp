@@ -5,60 +5,6 @@
 <head>
     <title>Edit Trays</title>
     <link rel="stylesheet" href="styles.css">
-        <style>
-        h1 {
-            text-align: center;
-        }
-    	table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            background-color: white;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
-
-        th {
-            background-color: #f99f9b;
-            color: white;
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        form {
-		    margin-top: 20px;
-		    padding: 20px;
-		    border-radius: 8px;
-		    background-color: #f9f9f9;
-		    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-		    width: 300px;
-		}
-
-		form input[type="number"] {
-		    width: 100%;
-		    margin-bottom: 10px;
-		}
-		
-		form button {
-		    width: 100%;
-		    background-color: #f99f9b;
-		    color: white;
-		    padding: 10px;
-		    border: none;
-		    border-radius: 4px;
-		    font-size: 16px;
-		}
-		
-    </style>
 </head>
 <body>
 	<header class="headerBanner">

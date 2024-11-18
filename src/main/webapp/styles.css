@@ -22,7 +22,6 @@
     text-align: center;
     color: var(--header-text-color);
     font-size: 5vh;
-    margin-left: 10%;
 }
 
 .headerSub{
@@ -31,7 +30,6 @@
     color: var(--header-text-color);
     font-size: 3vh;
     margin-left: 5% !important;
-    margin-left: 10%;
 }
 
 /* Drop-Down Menu!! ------------------------------------------------- */
@@ -44,7 +42,7 @@
 }
 
 /* Dropdown Button */
-.nav-button {
+.nav-dropdown button {
     background-color: var(--layer1-color);
     color: var(--bg-color);
     color: var(--body-text-color);
@@ -52,7 +50,6 @@
     font-size: 3vh;
     border: none;
     border-radius: 8px; /*rounded corners*/
-    text-decoration: none;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -119,8 +116,7 @@ a {
 }
 
 body {
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 10%;
     background-color: var(--bg-color);
     background-image: url('images/backroundSprinkles.png');
     background-repeat:repeat;
@@ -155,179 +151,29 @@ p {
     gap: 3px;
     background: var(--bg-contrast-color) !important;
     border-radius: 8px; /* Rounded corners */
-    Height: 80vh;
   }
   
   
   .DD-ImageLeft {
-    height: 40vw;
-    width: 40vw;
+    height: 600px;
+    width: 600px;
    
   }
 
   .DD-ImageLeft .DD-Image {
-    width: 40vw;
+    width: 600px;
   }
   
   .DD-MiddleContent {
   	width: 150px;
-  	
+  	Height: 600px;
   	font-size: larger;
   	color: var(--body-text-color) !important;
   }
   
   .DD-RightContent {
+    height: 600px;
     width: 200px;
   }
-  
-  
-  
-  /* MENU ------------------------------------------------------------*/
-  
-  .M-Container{
-  	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-  
-  .M-Card{
-  	margin: 3px;
-  	display: flex;
-    flex-direction: column;
-    gap: 3px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center;
-  }
-  
-  .M-Image{
-  	width: 200px;
-  }
-  
-  
-  /* MENU EDIT --------------------------------------------------------------*/
-  
-  .ME-Container{
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  
-  .ME-Card{
-  	display: flex;
-  	margin: 3px;
-    flex-direction: row;
-    gap: 2px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    justify-content: space-evenly;
-    align-items: flex-end;
-  }
-  
-  .ME-Image{
-    width: 150px;
-  	flex-direction: column;
-  }
-  
-  .ME-Actions{
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
- 
-  
-  /* CART --------------------------------------------------------------------*/
-  
-  .C-Container{
-    display: flex;
-    flex-direction: row;
-    gap: 3px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-  }
-  
-  .C-Content{
-  	margin: 3px;
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center;
-  }
-  
-  .C-Item{
-  	display: flex;
-    flex-direction: row;
-    gap: 15px;
-    background: var(--bg-color) !important;
-    border-radius: 3px; /* Rounded corners */
-    justify-content: space-evenly;
-  }
-  
-  .C-DonutActions{
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  .C-Button {
-      all: unset;
-      cursor: pointer;
-  }
-  
-  .C-Right{
-  	display: flex;
-  	margin: 15px;
-    flex-direction: column;
-    gap: 2px;
-    text-align: left;
-  }
-  
-  
-  /* REPORT ----------------------------------------------------------------------------*/
-  
-  R-Content{
-  	margin: 3px;
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center;
-  } 
-  
-  R-Item{
-  	display: flex;
-    flex-direction: row;
-    gap: 2px;
-    justify-content: space-evenly;
-  }  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   

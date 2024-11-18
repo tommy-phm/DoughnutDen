@@ -3,20 +3,15 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="store.*" %>
+<%@ page import="store.Doughnut" %>
 
 <%
-    List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
+    // Retrieve cart as Map<Integer, Integer> from the session
+    Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
 
     if (cart == null || cart.isEmpty()) {
         out.println("<h3>Your cart is empty.</h3>");
         return;
-    }
-
-    Map<Doughnut, Integer> doughnutQuantities = new HashMap<>();
-
-    for (Doughnut d : cart) {
-        doughnutQuantities.put(d, doughnutQuantities.getOrDefault(d, 0) + 1);
     }
 
     double grandTotal = 0.0;
@@ -26,66 +21,73 @@
     PreparedStatement psInsertTransaction = null;
     PreparedStatement psInsertTransactionDetails = null;
     PreparedStatement psUpdateTray = null;
-    PreparedStatement psGetDoughnutID = null;
+    PreparedStatement psGetDoughnutById = null;
     ResultSet rs = null;
-    
+
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = Database.getConnection();
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
         
-     // Disable auto-commit for transaction management
+        // Disable auto-commit for transaction management
         conn.setAutoCommit(false);
 
         // Insert transaction into Transactions table
-        String tractionSQL = "INSERT INTO Transactions (Date, Status) VALUES (?, ?)";
-        psInsertTransaction = conn.prepareStatement(tractionSQL, Statement.RETURN_GENERATED_KEYS);
+        String transactionSQL = "INSERT INTO Transactions (Date, Status) VALUES (?, ?)";
+        psInsertTransaction = conn.prepareStatement(transactionSQL, Statement.RETURN_GENERATED_KEYS);
         psInsertTransaction.setTimestamp(1, new java.sql.Timestamp(currentDate.getTime()));
-        psInsertTransaction.setBoolean(2, false);
+        psInsertTransaction.setBoolean(2, true);
         psInsertTransaction.executeUpdate();
 
-        // Insert details into TransactionDetails table and update Trays table
-        String tractionDetailsSQL = "INSERT INTO TransactionDetails (TransactionID, DoughnutID, DoughnutQty) VALUES (?, ?, ?)";
-        psInsertTransactionDetails = conn.prepareStatement(tractionDetailsSQL);
-
-        String updateTraySQL = "UPDATE Trays SET FreshQty = FreshQty - ? WHERE DoughnutID = ?";
-        psUpdateTray = conn.prepareStatement(updateTraySQL);
-        
         ResultSet generatedKeys = psInsertTransaction.getGeneratedKeys();
         int transactionId = 0;
         if (generatedKeys.next()) {
-            transactionId = generatedKeys.getInt(1);  // Retrieve the auto-generated transaction ID
+            transactionId = generatedKeys.getInt(1); // Retrieve the auto-generated transaction ID
         }
-        
 
-        for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
-            Doughnut d = entry.getKey();
+        // PreparedStatement for retrieving doughnut details by ID
+        String getDoughnutSQL = "SELECT DoughnutID, Name, Price FROM Doughnuts WHERE DoughnutID = ?";
+        psGetDoughnutById = conn.prepareStatement(getDoughnutSQL);
+
+        // PreparedStatement for inserting into TransactionDetails
+        String transactionDetailsSQL = "INSERT INTO TransactionDetails (TransactionID, DoughnutID, DoughnutQty) VALUES (?, ?, ?)";
+        psInsertTransactionDetails = conn.prepareStatement(transactionDetailsSQL);
+
+        // PreparedStatement for updating Trays
+        String updateTraySQL = "UPDATE Trays SET FreshQty = FreshQty - ? WHERE DoughnutID = ?";
+        psUpdateTray = conn.prepareStatement(updateTraySQL);
+
+        // Iterate through the cart to process each doughnut
+        for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+            int doughnutId = entry.getKey();
             int quantity = entry.getValue();
-            String checkDoughnutSQL = "SELECT COUNT(*) FROM Doughnuts WHERE DoughnutID = ?";
-            try (PreparedStatement psCheckDoughnut = conn.prepareStatement(checkDoughnutSQL)) {
-                psCheckDoughnut.setInt(1, d.getId());
-                ResultSet rsCheck = psCheckDoughnut.executeQuery();
-                if (rsCheck.next() && rsCheck.getInt(1) == 0) {
-                    out.println("Error: DoughnutID " + d.getId() + " not found in Doughnuts table.");
-                    continue; // Skip this doughnut if not found
-                }
-            }
-            double totalPrice = d.getPrice() * quantity;
-            grandTotal += totalPrice;           
 
-            // Add entry to TransactionDetails
+            // Retrieve doughnut details
+            psGetDoughnutById.setInt(1, doughnutId);
+            rs = psGetDoughnutById.executeQuery();
+            if (!rs.next()) {
+                out.println("Error: Doughnut ID " + doughnutId + " not found in Doughnuts table.");
+                continue; // Skip this doughnut if not found
+            }
+
+            String doughnutName = rs.getString("Name");
+            double doughnutPrice = rs.getDouble("Price");
+
+            double totalPrice = doughnutPrice * quantity;
+            grandTotal += totalPrice;
+
+            // Insert into TransactionDetails
             psInsertTransactionDetails.setInt(1, transactionId);
-            psInsertTransactionDetails.setInt(2, d.getId());
+            psInsertTransactionDetails.setInt(2, doughnutId);
             psInsertTransactionDetails.setInt(3, quantity);
             psInsertTransactionDetails.executeUpdate();
 
-            // Update Trays with new FreshQty
+            // Update Trays
             psUpdateTray.setInt(1, quantity);
-            psUpdateTray.setInt(2, d.getId());
+            psUpdateTray.setInt(2, doughnutId);
             psUpdateTray.executeUpdate();
         }
 
-        conn.commit();
-       
+        conn.commit(); // Commit the transaction
 %>
 
 <html>
@@ -94,34 +96,6 @@
     <title>Receipt</title>
 </head>
 <body>
-	<header class="headerBanner">
-		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
-			<a href="Menu.jsp"> 
-				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
-			 	Doughnut Den
-			</a>
-		</h1>
-		<a style="margin-left: 10%;" href="Menu.jsp">
-			<button class="nav-button">Menu</button>
-		</a>
-		<div class="nav-dropdown">
-				
-		    <button class="nav-button">Staff Portal</button>
-			<div class="dropdown-content">
-				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Transaction Edit</a>
-				<a href="Report.jsp">Report</a>
-			</div>
-		</div>
-		
-		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/User_icon.png"/>
-		</a>
-		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/cart.png"/>
-		</a>
-	</header>
     <h1>Receipt</h1>
     <p>Transaction ID: <%= transactionId %></p>
     <p>Date: <%= currentDate %></p>
@@ -136,15 +110,22 @@
     </div>
 
     <!-- Doughnut Details -->
-    <% for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) { 
-        Doughnut d = entry.getKey();
+    <% for (Map.Entry<Integer, Integer> entry : cart.entrySet()) { 
+        int doughnutId = entry.getKey();
         int quantity = entry.getValue();
-        double totalPrice = d.getPrice() * quantity;
+
+        // Retrieve doughnut details for display
+        psGetDoughnutById.setInt(1, doughnutId);
+        rs = psGetDoughnutById.executeQuery();
+        rs.next();
+        String doughnutName = rs.getString("Name");
+        double doughnutPrice = rs.getDouble("Price");
+        double totalPrice = doughnutPrice * quantity;
     %>
     <div style="display: flex; width: 100%; justify-content: space-evenly; background-color: var(--bg-color); padding: 10px; border-radius: 8px;">
-        <span style="flex: 1; text-align: center;"><%= d.getName() %></span>
+        <span style="flex: 1; text-align: center;"><%= doughnutName %></span>
         <span style="flex: 1; text-align: center;"><%= quantity %></span>
-        <span style="flex: 1; text-align: center;">$<%= d.getPrice() %></span>
+        <span style="flex: 1; text-align: center;">$<%= doughnutPrice %></span>
         <span style="flex: 1; text-align: center;">$<%= String.format("%.2f", totalPrice) %></span>
     </div>
     <% } %>
@@ -169,11 +150,12 @@
     } catch (Exception e) {
         if (conn != null) conn.rollback();
         e.printStackTrace();
-        out.println("Error processing transaction."+e.getMessage());
+        out.println("Error processing transaction: " + e.getMessage());
     } finally {
         if (psInsertTransaction != null) psInsertTransaction.close();
         if (psInsertTransactionDetails != null) psInsertTransactionDetails.close();
         if (psUpdateTray != null) psUpdateTray.close();
+        if (psGetDoughnutById != null) psGetDoughnutById.close();
         if (conn != null) conn.close();
     }
 

@@ -6,6 +6,14 @@
 <link rel="stylesheet" href="styles.css">
 <title>DoughnutDen</title>
 <link rel="icon" href="assets/Doughnut-Icon.png" type="image/png" />
+<style>
+img {
+	max-width: 100px;
+	max-height: 100px;
+	width: auto;
+	height: auto;
+}
+</style>
 </head>
 <body>
 	<header class="headerBanner">

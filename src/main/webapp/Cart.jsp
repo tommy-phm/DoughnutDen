@@ -2,74 +2,31 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="store.*"%>
+<%@ page import="store.*" %>
 
 
-<%
-    List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
-	if (cart == null) {
-	    cart = new ArrayList<>();
-	    session.setAttribute("cart", cart);  
-        
-        String insertSql = "INSERT INTO Doughnuts (name, description, price, status, categoryID, categoryName) VALUES (?, ?, ?, ?, ?, ?)";
-        Connection conn = null;
-        conn = Database.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
-            stmt.setString(1, "Test Donut");
-            stmt.setString(2, "A sample donut for testing");
-            stmt.setDouble(3, 1.99);
-            stmt.setBoolean(4, true);
-            stmt.setInt(5, 1);
-            stmt.setString(6, "test");
-            stmt.executeUpdate();
-        }
-	 catch (SQLException e) {
-        e.printStackTrace();
-	 }
-	}
-
-	
-	    
-    Map<Doughnut, Integer> doughnutQuantities = new HashMap<>();
-
-    if (cart != null) {
-        for (Doughnut d : cart) {
-            int id = d.getId();
-            if (doughnutQuantities.containsKey(id)) {
-                doughnutQuantities.put(d, doughnutQuantities.get(id) + 1);
-            } else {
-                doughnutQuantities.put(d, 1);
-            }
-        }
+<%	    
+    Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+    if (cart == null) {
+        cart = new HashMap<>();
+        session.setAttribute("cart", cart);
+        // Example entry for testing
+        cart.put(1, 3); // Example: Donut with ID 1 and quantity 3
     }
-    
  // Handle removing a doughnut from the cart
     String doughnutIdToRemove = request.getParameter("doughnutId");
     if (doughnutIdToRemove != null) {
-        int idToRemove = Integer.parseInt(doughnutIdToRemove);
-        
-        // Iterate over the cart and remove the doughnut with the given ID
-        for (int i = 0; i < cart.size(); i++) {
-            Doughnut d = cart.get(i);
-            if (d.getId() == idToRemove) {
-                // Remove the doughnut from the cart
-                cart.remove(i);
-                break;
-            }
+    	int doughnutRemove = Integer.parseInt(doughnutIdToRemove);
+        int currentQuantity = cart.get(doughnutRemove);
+        if (currentQuantity > 1) {
+            // Decrement quantity
+            int newQuantity = currentQuantity - 1;
+            cart.put(doughnutRemove, newQuantity);
+        } else {
+            // Remove the donut from the cart if quantity is 1
+            cart.remove(doughnutRemove);
         }
-
-        // Rebuild the doughnutQuantities map after removal
-        doughnutQuantities.clear();
-        for (Doughnut d : cart) {
-            if (doughnutQuantities.containsKey(d)) {
-                doughnutQuantities.put(d, doughnutQuantities.get(d) + 1);
-            } else {
-                doughnutQuantities.put(d, 1);
-            }
-        }
-        session.setAttribute("cart", cart); // Update the session with the new cart
     }
 %>
 
@@ -83,7 +40,7 @@
 	<header class="headerBanner">
 		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
-				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
+				<img src="../images/Doughnut-Icon.png" style=" width: 50px;" />
 			 	Doughnut Den
 			</a>
 		</h1>
@@ -102,12 +59,13 @@
 		</div>
 		
 		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/User_icon.png"/>
+			<img style=" width: 50px;" src="../images/User_icon.png"/>
 		</a>
 		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/cart.png"/>
+			<img style=" width: 50px;" src="../images/cart.png"/>
 		</a>
 	</header>
+<body>
 	
     <h1>Your Cart</h1>
         <!-- Flexbox container for the cart -->
@@ -124,13 +82,17 @@
 
         <!-- Cart Items -->
         <%
-            double grandTotal = 0.0;
-            for (Map.Entry<Doughnut, Integer> entry : doughnutQuantities.entrySet()) {
-                Doughnut d = entry.getKey();
+        	double grandTotal = 0;
+            for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
+                int doughnutId = entry.getKey();
                 int quantity = entry.getValue();
-                double totalPrice = d.getPrice() * quantity;
-                grandTotal += totalPrice;
+                Doughnut d = Doughnut.getDoughnutById(doughnutId);
+
+                if (d != null) {
+                    double totalPrice = d.getPrice() * quantity;
+                    grandTotal += totalPrice;
         %>
+        System.out.println("Doughnut ID: " + doughnutId + ", Quantity: " + quantity);
         <div style="display: flex; justify-content: space-between; padding: 10px; background-color: var(--bg-color); border-radius: 4px;">
             <div style="flex: 2;"><%= d.getName() %></div>
             <div style="flex: 1; text-align: center;"><%= quantity %></div>
@@ -138,12 +100,14 @@
             <div style="flex: 1; text-align: center;">$<%= String.format("%.2f", totalPrice) %></div>
             <div style="flex: 1; text-align: center;">
                 <form action="RemoveDoughnut" method="post" style="display:inline;">
-                    <input type="hidden" name="doughnutId" value="<%= d.getId() %>" />
+                    <input type="hidden" name="doughnutId" value="<%= doughnutId %>" />
                     <button type="submit" style="all: unset; cursor: pointer; background-color: var(--layer1-color); border-radius: 4px; padding: 5px;">Remove</button>
                 </form>
             </div>
         </div>
         <%
+            }
+                
             }
         %>
 
