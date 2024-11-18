@@ -45,7 +45,7 @@
 <html>
 <head>
     <title>Edit Transactions</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 	<header class="headerBanner">
