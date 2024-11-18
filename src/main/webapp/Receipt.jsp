@@ -89,14 +89,14 @@
 
         conn.commit(); // Commit the transaction
 %>
-
+<html>
 <head>
     <link rel="stylesheet" href="/Doughnut/styles.css">
     <title>DoughnutDen</title>
     <link rel="icon" href="assets/Doughnut-Icon.png" type="image/png" />
 </head>
 
-<html>
+<body>
 	<header class="headerBanner">
 		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
@@ -125,7 +125,7 @@
 			<img style=" width: 50px;" src="../images/cart.png"/>
 		</a>
 	</header>
-<body>
+
     <h1>Receipt</h1>
     <p>Transaction ID: <%= transactionId %></p>
     <p>Date: <%= currentDate %></p>
