@@ -24,7 +24,7 @@
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Transaction Edit</a>
+				<a href="TransactionEdit.jsp">Edit Transaction </a>
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>

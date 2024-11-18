@@ -64,7 +64,7 @@
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Transaction Edit</a>
+				<a href="TransactionEdit.jsp">Edit Transaction </a>
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>
@@ -77,7 +77,7 @@
 		</a>
 	</header>
 	
-    <h1>Transaction Edit Page</h1>
+    <h1>Edit Transaction  Page</h1>
     <form action="TransactionEdit.jsp" method="post">
         <table border="1">
             <tr>

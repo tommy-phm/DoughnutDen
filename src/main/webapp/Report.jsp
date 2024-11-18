@@ -1,5 +1,3 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="store.Database" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,7 +22,7 @@
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Transaction Edit</a>
+				<a href="TransactionEdit.jsp">Edit Transaction</a>
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>
@@ -36,140 +34,62 @@
 			<img style=" width: 50px;" src="../images/cart.png"/>
 		</a>
 	</header>
-
-    <h2>Report</h2>
-
-    <!-- Form to collect the query stuff -->
-    <form action="Report.jsp" method="post">
-        <label for="timeFrame">Select Time Frame:</label>
-        <select name="timeFrame" id="timeFrame" required>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
+	
+	<h2>Report</h2>
+    
+    <!-- Form to input DoughnutID and Timer Period -->
+    <form method="get" action="Report">
+        <label for="doughnutId">Enter Doughnut ID:</label>
+        <input type="number" name="doughnutId" id="doughnutId" required>
+        
+        <label for="timePeriod">Select Time Period:</label>
+        <select name="timePeriod" id="timePeriod" required>
+            <option value="day">Day</option>
+            <option value="month">Month</option>
+            <option value="year">Year</option>
         </select>
-
-        <label for="type">Select Report Type:</label>
-        <select name="type" id="type" required>
-            <option value="transaction">Transaction</option>
-            <option value="doughnut">Doughnut</option>
-        </select>
-
+        
+        <label for="date">Enter Date:</label>
+        <input type="date" name="date" id="date" required>
+        
         <button type="submit">Generate Report</button>
     </form>
 
-    <h2>Report Results</h2>
-    <div>
-        <%
-            ///check if form submitted with the two criteria
-            String timeFrame = request.getParameter("timeFrame");
-            String type = request.getParameter("type");
+    <hr>
+    
+    <!-- Display Report Results -->
+    <%
+        String error = (String) request.getAttribute("error");
+        if (error != null) {
+    %>
+        <p style="color: red;"><%= error %></p>
+    <%
+        } else {
+            String doughnutName = (String) request.getAttribute("doughnutName");
+            String categoryName = (String) request.getAttribute("categoryName");
+            Double doughnutPrice = (Double) request.getAttribute("doughnutPrice");
+            Integer totalQty = (Integer) request.getAttribute("totalQty");
+            Integer freshQty = (Integer) request.getAttribute("freshQty");
+            Integer staleQty = (Integer) request.getAttribute("staleQty");
+            Integer totalAmountSold = (Integer) request.getAttribute("totalAmountSold");
+            Double totalSales = (Double) request.getAttribute("totalSales");
 
-            if (timeFrame != null && type != null) {
-                Connection conn = null;
-                PreparedStatement stmt = null;
-                ResultSet rs = null;
-
-                try {
-                    ///connecting to database
-                    conn = Database.getConnection();
-
-                    ///dynamic query based on the input (timeFrame and type)
-                    String query = "";
-
-                    if ("transaction".equals(type)) {
-                        query = "SELECT td.TransactionID, t.Data, t.Status " +
-                                "FROM tractiondetails td " +
-                                "JOIN transaction t ON td.TransactionID = t.TransactionID " +
-                                "WHERE t.Data BETWEEN ? AND ?";
-                    } else if ("doughnut".equals(type)) {
-                        query = "SELECT td.TransactionID, td.DoughnutID, td.DoughnutQty, t.Data, t.Status " +
-                                "FROM tractiondetails td " +
-                                "JOIN transaction t ON td.TransactionID = t.TransactionID " +
-                                "WHERE t.Data BETWEEN ? AND ?";
-                    }
-
-                    stmt = conn.prepareStatement(query);
-
-                    ///set the date range based on the time frame (weekly, monthly, yearly)
-                    java.util.Date currentDate = new java.util.Date();
-                    java.sql.Date startDate = null;
-                    ///always today's date
-                    java.sql.Date endDate = new java.sql.Date(currentDate.getTime());
-
-                    if ("weekly".equals(timeFrame)) {
-                    	///subtracts 7 days from current date
-                        startDate = new java.sql.Date(currentDate.getTime() - 7L * 24 * 60 * 60 * 1000);
-                    	///subtracts 30 days
-                    } else if ("monthly".equals(timeFrame)) {
-                        startDate = new java.sql.Date(currentDate.getTime() - 30L * 24 * 60 * 60 * 1000);
-                    	///subtracts 365
-                    } else if ("yearly".equals(timeFrame)) {
-                        startDate = new java.sql.Date(currentDate.getTime() - 365L * 24 * 60 * 60 * 1000);
-                    }
-
-                    ///set the parameters for querying
-                    stmt.setDate(1, startDate);
-                    stmt.setDate(2, endDate);
-
-                    ///execute query and store in ResultSet object
-                    rs = stmt.executeQuery();
-        %>
-
-		<!-- Result Display -->
-        <table border="1">
-            <tr>
-                <th>Transaction ID</th>
-                <% if ("doughnut".equals(type)) { %>
-                <th>Doughnut ID</th>
-                <th>Doughnut Quantity</th>
-                <% } %>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-
-        <%
-            ///loop through the result set and display data in table
-            while (rs.next()) {
-                int tractionID = rs.getInt("TransactionID");
-                String data = rs.getString("Data");
-                String status = rs.getString("Status");
-
-                if ("doughnut".equals(type)) {
-                    int doughnutID = rs.getInt("DoughnutID");
-                    int doughnutQty = rs.getInt("DoughnutQty");
-        %>
-            <tr>
-                <td><%= tractionID %></td>
-                <td><%= doughnutID %></td>
-                <td><%= doughnutQty %></td>
-                <td><%= data %></td>
-                <td><%= status %></td>
-            </tr>
-        <%
-                } else {
-        %>
-            <tr>
-                <td><%= tractionID %></td>
-                <td><%= data %></td>
-                <td><%= status %></td>
-            </tr>
-        <%
-                }
+            if (doughnutName != null) {
+    %>
+                <h2><%= doughnutName %></h2>
+                <br>
+                <p><strong>Category:</strong> <%= categoryName %></p>
+                <p><strong>Price:</strong> $<%= String.format("%.2f", doughnutPrice) %></p>
+                <br>
+                <p><strong>Total Quantity:</strong> <%= totalQty %></p>
+                <p><strong>Fresh Quantity:</strong> <%= freshQty %></p>
+                <p><strong>Stale Quantity:</strong> <%= staleQty %></p>
+                <br>
+                <p><strong>Total Amount Sold:</strong> <%= totalAmountSold %></p>
+                <p><strong>Total Sales:</strong> $<%= String.format("%.2f", totalSales) %></p>
+    <%
             }
-        %>
-        </table>
-
-        <%
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-                    if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-                    if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
-                }
-            }
-        %>
-    </div>
-
+        }
+    %>
 </body>
 </html>
