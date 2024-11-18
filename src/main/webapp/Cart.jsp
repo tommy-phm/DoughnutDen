@@ -46,7 +46,7 @@
 	<header class="headerBanner">
 	    <h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
 	        <a href="Menu.jsp"> 
-	            <img src="../images/Doughnut-Icon.png" style=" width: 50px;" />
+	            <img src="images/Doughnut-Icon.png" style=" width: 50px;" />
 	             Doughnut Den
 	        </a>
 	    </h1>
@@ -65,10 +65,10 @@
 	    </div>
 	    
 	    <a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-	        <img style=" width: 50px;" src="../images/User_icon.png"/>
+	        <img style=" width: 50px;" src="images/User_icon.png"/>
 	    </a>
 	    <a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-	        <img style=" width: 50px;" src="../images/cart.png"/>
+	        <img style=" width: 50px;" src="images/cart.png"/>
 	    </a>
 	</header>
 
