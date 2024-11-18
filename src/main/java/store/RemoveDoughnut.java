@@ -1,59 +1,45 @@
 package store;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.HashMap;
 
 @WebServlet("/RemoveDoughnut")
 public class RemoveDoughnut extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	@Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// Parse the doughnut ID from the request parameter
         int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
 
+        // Get the cart from the session
         HttpSession session = request.getSession();
-        List<Doughnut> cart = (List<Doughnut>) session.getAttribute("cart");
+        Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+
         if (cart != null) {
-            // Check if donut exists in cart and remove it
-            boolean removed = false;
-            for (int i = 0; i < cart.size(); i++) {
-                Doughnut d = cart.get(i);
-                if (d.getId() == doughnutId) {
-                    cart.remove(i);
-                    removed = true;
-                    break;
+            // Remove the doughnut from the cart or decrease its quantity
+            if (cart.containsKey(doughnutId)) {
+                int currentQuantity = cart.get(doughnutId);
+                if (currentQuantity > 1) {
+                    // Decrease the quantity by 1
+                    cart.put(doughnutId, currentQuantity - 1);
+                } else {
+                    // Remove the doughnut completely if the quantity is 1
+                    cart.remove(doughnutId);
                 }
             }
-            
-            // Only update the database if the donut was found and removed from the cart
-            if (removed) {
-                updateDoughnutStock(doughnutId);
-            }
         }
 
+        // Redirect back to the cart page
         response.sendRedirect("Cart.jsp");
-    }
-
-    // Method to update doughnut quantity in the database
-    private void updateDoughnutStock(int doughnutId) {
-    	String sql = "UPDATE doughnuts SET quantity = quantity + 1 WHERE id = ?";
-        try (Connection connection = Database.getConnection()) {
-            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-                stmt.setInt(1, doughnutId);
-                stmt.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log or handle the exception
-        }
     }
 }
