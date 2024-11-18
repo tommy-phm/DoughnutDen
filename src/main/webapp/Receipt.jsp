@@ -26,7 +26,7 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "password");
         
         // Disable auto-commit for transaction management
         conn.setAutoCommit(false);
@@ -90,11 +90,41 @@
         conn.commit(); // Commit the transaction
 %>
 
-<html>
 <head>
-    <link rel="stylesheet" href="styles.css">
-    <title>Receipt</title>
+    <link rel="stylesheet" href="/Doughnut/styles.css">
+    <title>DoughnutDen</title>
+    <link rel="icon" href="assets/Doughnut-Icon.png" type="image/png" />
 </head>
+
+<html>
+	<header class="headerBanner">
+		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+			<a href="Menu.jsp"> 
+				<img src="../images/Doughnut-Icon.png" style=" width: 50px;" />
+			 	Doughnut Den
+			</a>
+		</h1>
+		<a style="margin-left: 10%;" href="Menu.jsp">
+			<button class="nav-button">Menu</button>
+		</a>
+		<div class="nav-dropdown">
+				
+		    <button class="nav-button">Staff Portal</button>
+			<div class="dropdown-content">
+				<a href="MenuEdit.jsp">Edit Menu</a>
+				<a href="TrayEdit.jsp">Edit Tray</a>
+				<a href="TransactionEdit.jsp">Transaction Edit</a>
+				<a href="Report.jsp">Report</a>
+			</div>
+		</div>
+		
+		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
+			<img style=" width: 50px;" src="../images/User_icon.png"/>
+		</a>
+		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
+			<img style=" width: 50px;" src="../images/cart.png"/>
+		</a>
+	</header>
 <body>
     <h1>Receipt</h1>
     <p>Transaction ID: <%= transactionId %></p>
