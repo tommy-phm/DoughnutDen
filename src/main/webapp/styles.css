@@ -286,10 +286,26 @@ p {
     gap: 2px;
     text-align: left;
   }
-    
- 
   
   
+  /* REPORT ----------------------------------------------------------------------------*/
+  
+  R-Content{
+  	margin: 3px;
+  	display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--bg-contrast-color) !important;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
+  } 
+  
+  R-Item{
+  	display: flex;
+    flex-direction: row;
+    gap: 2px;
+    justify-content: space-evenly;
+  }  
   
   
   

@@ -76,17 +76,28 @@
 
             if (doughnutName != null) {
     %>
+    	<div class="R-Content">
+    		<div class="R-Item">
                 <h2><%= doughnutName %></h2>
                 <br>
                 <p><strong>Category:</strong> <%= categoryName %></p>
                 <p><strong>Price:</strong> $<%= String.format("%.2f", doughnutPrice) %></p>
                 <br>
+            </div>
+            
+            <div class="R-Item">
                 <p><strong>Total Quantity:</strong> <%= totalQty %></p>
                 <p><strong>Fresh Quantity:</strong> <%= freshQty %></p>
                 <p><strong>Stale Quantity:</strong> <%= staleQty %></p>
                 <br>
+            </div>
+            
+            <div class="R-Item">
                 <p><strong>Total Amount Sold:</strong> <%= totalAmountSold %></p>
                 <p><strong>Total Sales:</strong> $<%= String.format("%.2f", totalSales) %></p>
+            </div>
+            
+        </div>
     <%
             }
         }
