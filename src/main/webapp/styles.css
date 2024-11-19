@@ -1,324 +1,314 @@
 :root { /* Page-Wide values for colors */
-    --bg-color: #F7F9DC;
-    --bg-contrast-color: #f99f9b;
-    --header-color: #d4fdf6;
-    --layer1-color: #bcfcff;
-    --layer2-color: #ffb1ea;
-    --highlight-color: #d941ff;
-    --body-text-color: #4rgb(28, 94, 90)
-    --header-text-color: rgb(215, 183, 0);
-    --link-text-color: #ff0090;
+	--bg-color: #F7F9DC;
+	--bg-contrast-color: #f99f9b;
+	--header-color: #d4fdf6;
+	--layer1-color: #bcfcff;
+	--layer2-color: #ffb1ea;
+	--highlight-color: #d941ff;
+	--body-text-color: #4rgb(28, 94, 90) --header-text-color: rgb(215, 183, 0);
+	--link-text-color: #ff0090;
+	font-family: Arial, sans-serif;
 }
 
 img {
-    width: 50px;
-    height: auto;
+	width: 50px;
+	height: auto;
 }
 
 /* -- Header Formatting ------------------------------------------- */
 .headerBanner {
-    background: var(--header-color);
-    margin-top: 0;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 8px; /* Rounded corners */
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
+	background: var(--header-color);
+	margin-top: 0;
+	padding-left: 40px;
+	padding-right: 40px;
+	border-radius: 8px; /* Rounded corners */
+	justify-content: space-between;
+	display: flex;
+	align-items: center;
 }
 
 .headerMain {
-	    display: flex;
-    align-items: center;
-    text-align: center;
-    color: var(--header-text-color);
-    font-size: 5vh;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: var(--header-text-color);
+	font-size: 5vh;
 }
 
-.headerSub{
-    display: inline-block;
-    text-align: left;
-    color: var(--header-text-color);
-    font-size: 3vh;
-    margin-left: 5% !important;
-    margin-left: 10%;
+.headerSub {
+	display: inline-block;
+	text-align: left;
+	color: var(--header-text-color);
+	font-size: 3vh;
+	margin-left: 5% !important;
+	margin-left: 10%;
 }
 
 /* Drop-Down Menu!! ------------------------------------------------- */
 
 /* The container <div> - needed to position the dropdown content */
 .nav-dropdown {
-    position: relative;
-    display: inline-block;
-    font-size: 3vh;
+	position: relative;
+	display: inline-block;
+	font-size: 3vh;
 }
 
 /* Dropdown Button */
 .nav-button {
-    background-color: var(--layer1-color);
-    color: var(--bg-color);
-    color: var(--body-text-color);
-    padding: 8px;
-    font-size: 3vh;
-    border: none;
-    border-radius: 8px; /*rounded corners*/
-    text-decoration: none;
+	background-color: var(--layer1-color);
+	color: var(--bg-color);
+	color: var(--body-text-color);
+	padding: 8px;
+	font-size: 3vh;
+	border: none;
+	border-radius: 8px; /*rounded corners*/
+	text-decoration: none;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: var(--bg-color);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 8px;  /*rounded corners*/
+	display: none;
+	position: absolute;
+	background-color: var(--bg-color);
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 8px; /*rounded corners*/
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: var(--body-text-color);
-    padding: 8px 12px;
-    text-decoration: none;
-    display: block;
-    font-size: 3vh;
-    border-radius: 4px;  /*rounded corners*/
+	color: var(--body-text-color);
+	padding: 8px 12px;
+	text-decoration: none;
+	display: block;
+	font-size: 3vh;
+	border-radius: 4px; /*rounded corners*/
 }
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-    background-color: var(--layer1-color);
-    border-radius: 4px;  /*maintain rounded corners on hover*/
+	background-color: var(--layer1-color);
+	border-radius: 4px; /*maintain rounded corners on hover*/
 }
-  
+
 /* Show the dropdown menu on hover */
-.nav-dropdown:hover .dropdown-content {display: block;}
-  
+.nav-dropdown:hover .dropdown-content {
+	display: block;
+}
+
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .nav-dropdown:hover .dropbtn {
-    background-color: var(--highlight-color);
-    border-radius: 8px;  /*maintain rounded corners*/
+	background-color: var(--highlight-color);
+	border-radius: 8px; /*maintain rounded corners*/
 }
 
 /* ----------- BODY FORMATTING --------------------------------------- */
-.bodyBackround{
-    background-color: var(--bg-color);
-    margin-left: 15%;
-    margin-right: 15%;
-    display: inline-block;
-    border-radius: 8px; 
+.bodyBackround {
+	background-color: var(--bg-color);
+	margin-left: 15%;
+	margin-right: 15%;
+	display: inline-block;
+	border-radius: 8px;
 }
 
 a {
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
-    color: var(--header-text-color);
-    transition: color 0.3s ease;
+	text-align: center;
+	display: inline-block;
+	text-decoration: none;
+	color: var(--header-text-color);
+	transition: color 0.3s ease;
 }
 
 a:hover {
-    color: var(--highlight-color); 
+	color: var(--highlight-color);
 }
 
 .image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8px; /*rounded corners for images */
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 8px; /*rounded corners for images */
 }
 
 .center {
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8px; 
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 8px;
 }
 
 body {
-    margin-left: 10%;
-    margin-right: 10%;
-    background-color: var(--bg-color);
-    background-image: url('images/backroundSprinkles.png');
-    background-repeat:repeat;
-    background-size: 300px;
+	margin-left: 10%;
+	margin-right: 10%;
+	background-color: var(--bg-color);
+	background-image: url('images/backroundSprinkles.png');
+	background-repeat: repeat;
+	background-size: 300px;
 }
 
-h2{
-    text-align: center;
-    font-size: larger;
-    font-weight: bold;
-    color: var(--header-text-color);
+h2 {
+	text-align: center;
+	font-size: larger;
+	font-weight: bold;
+	color: var(--header-text-color);
 }
 
-h3{
-    text-align: center;
-    font-size: larger;
-    font-weight: bold;
-    font-style: oblique;
-    color: var(--header-text-color);
+h3 {
+	text-align: center;
+	font-size: larger;
+	font-weight: bold;
+	font-style: oblique;
+	color: var(--header-text-color);
 }
 
 p {
-    text-align: center;
-    color: var(--body-text-color);
+	text-align: center;
+	color: var(--body-text-color);
 }
 
 /* DONUT DETAILS ---------------------------------------------------*/
+.DD-Container {
+	display: flex;
+	flex-direction: row;
+	gap: 3px;
+	background: var(--bg-contrast-color) !important;
+	border-radius: 8px; /* Rounded corners */
+	Height: 80vh;
+}
 
-  .DD-Container{
-    display: flex;
-    flex-direction: row;
-    gap: 3px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    Height: 80vh;
-  }
-  
-  
-  .DD-ImageLeft {
-    height: 40vw;
-    width: 40vw;
-   
-  }
+.DD-ImageLeft {
+	height: 40vw;
+	width: 40vw;
+}
 
-  .DD-ImageLeft .DD-Image {
-    width: 40vw;
-  }
-  
-  .DD-MiddleContent {
-  	width: 150px;
-  	
-  	font-size: larger;
-  	color: var(--body-text-color) !important;
-  }
-  
-  .DD-RightContent {
-    width: 200px;
-  }
-  
-  
-  
-  /* MENU ------------------------------------------------------------*/
-  
-  .M-Container{
-  	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-  
-  .M-Card{
-  	margin: 3px;
-  	display: flex;
-    flex-direction: column;
-    gap: 3px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center;
-  }
-  
-  .M-Image{
-  	width: 200px;
-  }
-  
-  
-  /* MENU EDIT --------------------------------------------------------------*/
-  
-  .ME-Container{
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  
-  .ME-Card{
-  	display: flex;
-  	margin: 3px;
-    flex-direction: row;
-    gap: 2px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    justify-content: space-evenly;
-    align-items: flex-end;
-  }
-  
-  .ME-Image{
-    width: 150px;
-  	flex-direction: column;
-  }
-  
-  .ME-Actions{
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
- 
-  
-  /* CART --------------------------------------------------------------------*/
-  
-  .C-Container{
-    display: flex;
-    flex-direction: row;
-    gap: 3px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-  }
-  
-  .C-Content{
-  	margin: 3px;
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-    background: var(--bg-contrast-color) !important;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center;
-  }
-  
-  .C-Item{
-  	display: flex;
-    flex-direction: row;
-    gap: 15px;
-    background: var(--bg-color) !important;
-    border-radius: 3px; /* Rounded corners */
-    justify-content: space-evenly;
-  }
-  
-  .C-DonutActions{
-  	display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  .C-Button {
-      all: unset;
-      cursor: pointer;
-  }
-  
-  .C-Right{
-  	display: flex;
-  	margin: 15px;
-    flex-direction: column;
-    gap: 2px;
-    text-align: left;
-  }
+.DD-ImageLeft .DD-Image {
+	width: 40vw;
+}
+
+.DD-MiddleContent {
+	width: 150px;
+	font-size: larger;
+	color: var(--body-text-color) !important;
+}
+
+.DD-RightContent {
+	width: 200px;
+}
+
+/* MENU ------------------------------------------------------------*/
+.M-Container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.M-Card {
+	margin: 3px;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	background: var(--bg-contrast-color) !important;
+	border-radius: 8px; /* Rounded corners */
+	text-align: center;
+}
+
+.M-Image {
+	width: 200px;
+}
+
+/* MENU EDIT --------------------------------------------------------------*/
+.ME-Container {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.ME-Card {
+	display: flex;
+	margin: 3px;
+	flex-direction: row;
+	gap: 2px;
+	background: var(--bg-contrast-color) !important;
+	border-radius: 8px; /* Rounded corners */
+	justify-content: space-evenly;
+	align-items: flex-end;
+}
+
+.ME-Image {
+	width: 150px;
+	flex-direction: column;
+}
+
+.ME-Actions {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+/* CART --------------------------------------------------------------------*/
+.C-Container {
+	display: flex;
+	flex-direction: row;
+	gap: 3px;
+	background: var(--bg-contrast-color) !important;
+	border-radius: 8px; /* Rounded corners */
+}
+
+.C-Content {
+	margin: 3px;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	background: var(--bg-contrast-color) !important;
+	border-radius: 8px; /* Rounded corners */
+	text-align: center;
+}
+
+.C-Item {
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	background: var(--bg-color) !important;
+	border-radius: 3px; /* Rounded corners */
+	justify-content: space-evenly;
+}
+
+.C-DonutActions {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.C-Button {
+	all: unset;
+	cursor: pointer;
+}
+
+.C-Right {
+	display: flex;
+	margin: 15px;
+	flex-direction: column;
+	gap: 2px;
+	text-align: left;
+}
 
 /* Staff Portal Container ---------------------------------------------------*/
-  
 .portal-container {
     margin: 50px auto;
-    padding: 20px;
-    width: 50%;
+    padding: 30px;
+    width: 40%;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
 .portal-container h1 {
     color: #f99f9b;
     margin-bottom: 20px;
 }
+
 .portal-container a {
     display: block;
     margin: 10px 0;
@@ -328,32 +318,71 @@ p {
     background-color: #f99f9b;
     border-radius: 5px;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
+
 .portal-container a:hover {
     background-color: #d97a75;
 }
-  
-/* Table ---------------------------------------------------*/
-  
-table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-}
-th, td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
-    font-size: 14px;
-}
-th {
-    background-color: #f99f9b;
+
+.portal-container button {
+    padding: 10px;
+    font-size: 16px;
     color: white;
+    background-color: #f99f9b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.portal-container button:hover {
+    background-color: #d97a75;
+}
+
+.portal-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.portal-container label {
+    font-size: 14px;
     font-weight: bold;
+    color: #333;
+    text-align: left;
 }
+
+.portal-container input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* Table ---------------------------------------------------*/
+table {
+	width: 90%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	background-color: white;
+}
+
+th, td {
+	padding: 12px;
+	text-align: center;
+	border: 1px solid #ddd;
+	font-size: 14px;
+}
+
+th {
+	background-color: #f99f9b;
+	color: white;
+	font-weight: bold;
+}
+
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+	background-color: #f9f9f9;
 }
-  
