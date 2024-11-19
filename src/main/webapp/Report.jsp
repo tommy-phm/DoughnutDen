@@ -1,91 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.util.List"%>
+<%@ page import="store.Report"%>
 <html>
 <head>
-    <title>DoughnutDen - Report</title>
+    <title>DoughnutDen - Sales Report</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/Doughnut-Icon.png" type="image/png" />
 </head>
 <body>
 <header class="headerBanner">
     <h1 class="headerMain">
         <a href="Menu.jsp">
-            <img src="images/Doughnut-Icon.png"/>
+            <img src="images/Doughnut-Icon.png" />
             Doughnut Den
         </a>
     </h1>
     <div class="headerIcons">
         <a href="StaffPortal.jsp">
-            <img src="images/User_icon.png"/>
+            <img src="images/User_icon.png" />
         </a>
     </div>
 </header>
-	
-	<h1>Report</h1>
-    
-    <!-- Form to input DoughnutID and Timer Period -->
+
+<h1>Doughnut Sales Report</h1>
+
+<div class="portal-container">
     <form method="get" action="Report">
-        <label for="doughnutId">Enter Doughnut ID:</label>
-        <input type="number" name="doughnutId" id="doughnutId" required>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
         
-        <label for="timePeriod">Select Time Period:</label>
-        <select name="timePeriod" id="timePeriod" required>
-            <option value="day">Day</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
-        </select>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
         
-        <label for="date">Enter Date:</label>
-        <input type="date" name="date" id="date" required>
-        
-        <button type="submit">Generate Report</button>
+        <button type="submit" class="button">Generate Report</button>
     </form>
+</div>
 
-    <hr>
-    
-    <!-- Display Report Results -->
-    <%
-        String error = (String) request.getAttribute("error");
-        if (error != null) {
-    %>
-        <p style="color: red;"><%= error %></p>
-    <%
-        } else {
-            String doughnutName = (String) request.getAttribute("doughnutName");
-            String categoryName = (String) request.getAttribute("categoryName");
-            Double doughnutPrice = (Double) request.getAttribute("doughnutPrice");
-            Integer totalQty = (Integer) request.getAttribute("totalQty");
-            Integer freshQty = (Integer) request.getAttribute("freshQty");
-            Integer staleQty = (Integer) request.getAttribute("staleQty");
-            Integer totalAmountSold = (Integer) request.getAttribute("totalAmountSold");
-            Double totalSales = (Double) request.getAttribute("totalSales");
+<div class="table-container">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Sale</th>
+                <th>Sold Qty</th>
+                <th>Fresh Qty</th>
+                <th>Stale Qty</th>
+                <th>Total Qty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                List<Report> report = (List<Report>) request.getAttribute("report");
+                if (report != null) {
+                    for (Report row : report) {
+            %>
+            <tr>
+                <td><%= row.getName() %></td>
+                <td><%= row.getCategoryName() %></td>
+                <td>$<%= row.getPrice() %></td>
+                <td>$<%= row.getTotalSales() %></td>
+                <td><%= row.getQuantitySold() %></td>
+                <td><%= row.getFreshQty() %></td>
+                <td><%= row.getStaleQty() %></td>
+                <td><%= row.getTotalQty() %></td>
+            </tr>
+            <% 
+                    }
+                } else { 
+            %>
+            <tr>
+                <td colspan="8" class="no-data">No data available</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
 
-            if (doughnutName != null) {
-    %>
-    	<div class="R-Content">
-    		<div class="R-Item">
-                <h2><%= doughnutName %></h2>
-                <br>
-                <p><strong>Category:</strong> <%= categoryName %></p>
-                <p><strong>Price:</strong> $<%= String.format("%.2f", doughnutPrice) %></p>
-                <br>
-            </div>
-            
-            <div class="R-Item">
-                <p><strong>Total Quantity:</strong> <%= totalQty %></p>
-                <p><strong>Fresh Quantity:</strong> <%= freshQty %></p>
-                <p><strong>Stale Quantity:</strong> <%= staleQty %></p>
-                <br>
-            </div>
-            
-            <div class="R-Item">
-                <p><strong>Total Amount Sold:</strong> <%= totalAmountSold %></p>
-                <p><strong>Total Sales:</strong> $<%= String.format("%.2f", totalSales) %></p>
-            </div>
-            
-        </div>
-    <%
-            }
-        }
-    %>
 </body>
 </html>
