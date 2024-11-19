@@ -31,41 +31,28 @@
 %>
 
 <html>
-
 <head>
-<link rel="stylesheet" href="styles.css">
-    <title>Shopping Cart</title>
+	<title>DoughnutDen - Cart</title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="icon" href="assets/Doughnut-Icon.png"/>
 </head>
 <body>
-	<header class="headerBanner">
-		<h1 class="headerMain" style="display: flex; justify-content: center; align-items: center; text-decoration: none;">
-			<a href="Menu.jsp"> 
-				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
-			 	Doughnut Den
-			</a>
-		</h1>
-		<a style="margin-left: 10%;" href="Menu.jsp">
-			<button class="nav-button">Menu</button>
-		</a>
-		<div class="nav-dropdown">
-				
-		    <button class="nav-button">Staff Portal</button>
-			<div class="dropdown-content">
-				<a href="MenuEdit.jsp">Edit Menu</a>
-				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Edit Transaction </a>
-				<a href="Report.jsp">Report</a>
-			</div>
-		</div>
-		
-		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/User_icon.png"/>
-		</a>
-		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/cart.png"/>
-		</a>
-	</header>
-<body>
+<header class="headerBanner">
+    <h1 class="headerMain">
+        <a href="Menu.jsp">
+            <img src="images/Doughnut-Icon.png"/>
+            Doughnut Den
+        </a>
+    </h1>
+    <div class="headerIcons">
+        <a href="Cart.jsp">
+            <img src="images/cart.png"/>
+        </a>
+        <a href="StaffPortal.jsp">
+            <img src="images/User_icon.png"/>
+        </a>
+    </div>
+</header>
 	
     <h1>Your Cart</h1>
         <!-- Flexbox container for the cart -->

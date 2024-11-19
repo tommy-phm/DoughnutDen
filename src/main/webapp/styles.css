@@ -10,15 +10,26 @@
     --link-text-color: #ff0090;
 }
 
+img {
+    width: 50px;
+    height: auto;
+}
+
 /* -- Header Formatting ------------------------------------------- */
 .headerBanner {
     background: var(--header-color);
     margin-top: 0;
-    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
     border-radius: 8px; /* Rounded corners */
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
 }
 
 .headerMain {
+	    display: flex;
+    align-items: center;
     text-align: center;
     color: var(--header-text-color);
     font-size: 5vh;
@@ -102,6 +113,13 @@
 a {
     text-align: center;
     display: inline-block;
+    text-decoration: none;
+    color: var(--header-text-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--highlight-color); 
 }
 
 .image {
@@ -285,6 +303,36 @@ p {
     gap: 2px;
     text-align: left;
   }
+
+/* Staff Portal Container ---------------------------------------------------*/
+  
+.portal-container {
+    margin: 50px auto;
+    padding: 20px;
+    width: 50%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.portal-container h1 {
+    color: #f99f9b;
+    margin-bottom: 20px;
+}
+.portal-container a {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #f99f9b;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.portal-container a:hover {
+    background-color: #d97a75;
+}
+  
 /* Table ---------------------------------------------------*/
   
 table {
@@ -308,5 +356,4 @@ th {
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-  
   
