@@ -2,40 +2,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Report</title>
+    <title>DoughnutDen - Report</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .headerBanner {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-	<header class="headerBanner">
-		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+	<header class="headerBanner" style="text-align: center;">
+		<h1 class="headerMain" style="display: flex; justify-content: center; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
 				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
 			 	Doughnut Den
 			</a>
 		</h1>
-		<a style="margin-left: 10%;" href="Menu.jsp">
-			<button class="nav-button">Menu</button>
-		</a>
 		<div class="nav-dropdown">
-				
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
 				<a href="TrayEdit.jsp">Edit Tray</a>
-				<a href="TransactionEdit.jsp">Edit Transaction</a>
+				<a href="TransactionEdit.jsp">Edit Transaction </a>
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>
-		
-		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/User_icon.png"/>
-		</a>
-		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/cart.png"/>
-		</a>
 	</header>
 	
-	<h2>Report</h2>
+	<h1>Report</h1>
     
     <!-- Form to input DoughnutID and Timer Period -->
     <form method="get" action="Report">

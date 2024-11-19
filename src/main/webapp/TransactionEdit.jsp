@@ -44,22 +44,25 @@
 
 <html>
 <head>
-    <title>Edit Transactions</title>
+    <title>DoughnutDen - Edit Transactions</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/Doughnut-Icon.png" type="image/png" />
+    <style>
+        .headerBanner {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-	<header class="headerBanner">
-		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+	<header class="headerBanner" style="text-align: center;">
+		<h1 class="headerMain" style="display: flex; justify-content: center; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
 				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
 			 	Doughnut Den
 			</a>
 		</h1>
-		<a style="margin-left: 10%;" href="Menu.jsp">
-			<button class="nav-button">Menu</button>
-		</a>
 		<div class="nav-dropdown">
-				
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
@@ -68,16 +71,9 @@
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>
-		
-		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/User_icon.png"/>
-		</a>
-		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/cart.png"/>
-		</a>
 	</header>
 	
-    <h1>Transaction Edit Page</h1>
+    <h1>Edit Transaction  Page</h1>
     <form action="TransactionEdit.jsp" method="post">
         <table border="1">
             <tr>

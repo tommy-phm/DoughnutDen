@@ -3,22 +3,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Trays</title>
+    <title>DoughnutDen - Edit Tray</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/Doughnut-Icon.png" type="image/png" />
+    <style>
+        form {
+		    margin-top: 20px;
+		    padding: 20px;
+		    border-radius: 8px;
+		    background-color: #f9f9f9;
+		    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		    width: 300px;
+		}
+
+		form input[type="number"] {
+		    width: 100%;
+		    margin-bottom: 10px;
+		}
+		
+		form button {
+		    width: 100%;
+		    background-color: #f99f9b;
+		    color: white;
+		    padding: 10px;
+		    border: none;
+		    border-radius: 4px;
+		    font-size: 16px;
+		}
+    </style>
 </head>
 <body>
-	<header class="headerBanner">
-		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+	<header class="headerBanner" style="text-align: center;">
+		<h1 class="headerMain" style="display: flex; justify-content: center; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
 				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
 			 	Doughnut Den
 			</a>
 		</h1>
-		<a style="margin-left: 10%;" href="Menu.jsp">
-			<button class="nav-button">Menu</button>
-		</a>
 		<div class="nav-dropdown">
-				
 		    <button class="nav-button">Staff Portal</button>
 			<div class="dropdown-content">
 				<a href="MenuEdit.jsp">Edit Menu</a>
@@ -27,16 +49,9 @@
 				<a href="Report.jsp">Report</a>
 			</div>
 		</div>
-		
-		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/User_icon.png"/>
-		</a>
-		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
-			<img style=" width: 50px;" src="images/cart.png"/>
-		</a>
 	</header>
 	
-    <h2>Edit Tray List</h2>
+    <h1>Edit Tray List</h1>
     <table border="1">
         <thead>
             <tr>
@@ -72,8 +87,7 @@
             %>
         </tbody>
     </table>
-
-    <h3>Add New Tray</h3>
+    <h1>Add New Tray</h1>
     <form action="Tray" method="post">
         <label for="doughnutID">Doughnut ID:</label>
         <input type="number" name="doughnutID">

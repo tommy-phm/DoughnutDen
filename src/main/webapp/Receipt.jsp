@@ -3,7 +3,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="store.Doughnut" %>
+<%@ page import="store.*" %>
 
 <%
     // Retrieve cart as Map<Integer, Integer> from the session
@@ -26,7 +26,7 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database", "root", "Cg11262003!");
+        conn = Database.getConnection();
         
         // Disable auto-commit for transaction management
         conn.setAutoCommit(false);
@@ -92,10 +92,28 @@
 
 <html>
 <head>
+	<title>DoughnutDen - Receipt</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Receipt</title>
+    <link rel="icon" href="images/Doughnut-Icon.png" type="image/png" />
 </head>
 <body>
+	<header class="headerBanner">
+		<h1 class="headerMain" style="display: flex; justify-content: center; align-items: center; text-decoration: none;">
+			<a href="Menu.jsp"> 
+				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
+			 	Doughnut Den
+			</a>
+		</h1>
+		<div class="nav-dropdown">
+		    <button class="nav-button">Staff Portal</button>
+			<div class="dropdown-content">
+				<a href="MenuEdit.jsp">Edit Menu</a>
+				<a href="TrayEdit.jsp">Edit Tray</a>
+				<a href="TransactionEdit.jsp">Edit Transaction </a>
+				<a href="Report.jsp">Report</a>
+			</div>
+		</div>
+	</header>
     <h1>Receipt</h1>
     <p>Transaction ID: <%= transactionId %></p>
     <p>Date: <%= currentDate %></p>

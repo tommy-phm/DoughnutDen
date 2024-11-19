@@ -6,18 +6,11 @@
 <link rel="stylesheet" href="styles.css">
 <title>DoughnutDen</title>
 <link rel="icon" href="assets/Doughnut-Icon.png" type="image/png" />
-<style>
-img {
-	max-width: 100px;
-	max-height: 100px;
-	width: auto;
-	height: auto;
-}
-</style>
+
 </head>
 <body>
 	<header class="headerBanner">
-		<h1 class="headerMain" style="display: flex; align-items: center; text-decoration: none;">
+		<h1 class="headerMain" style="display: flex; justify-content: center; align-items: center; text-decoration: none;">
 			<a href="Menu.jsp"> 
 				<img src="images/Doughnut-Icon.png" style=" width: 50px;" />
 			 	Doughnut Den
@@ -37,7 +30,7 @@ img {
 			</div>
 		</div>
 		
-		<a href="Receipt.jsp" style="float: right; margin-right: 5%;"> 
+		<a href="StaffPortal.jsp" style="float: right; margin-right: 5%;"> 
 			<img style=" width: 50px;" src="images/User_icon.png"/>
 		</a>
 		<a href="Cart.jsp" style="float: right; margin-right: 5%;"> 
@@ -73,7 +66,7 @@ img {
                 <input type="hidden" name="doughnutId" value="<%= doughnut.getId() %>">
                 <label for="quantity-<%= doughnut.getId() %>">Quantity:</label>
                 <input type="number" id="quantity-<%= doughnut.getId() %>" name="quantity" class="quantity-input" value="1" min="1">
-                <button type="submit" class="nav-button">Add to Cart</button>
+                <button type="submit" class="nav-button" style="font-size: 1vh;">Add to Cart</button>
             </form>
 		</div>
 	<%
