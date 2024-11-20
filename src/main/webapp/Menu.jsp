@@ -31,7 +31,16 @@
 	List<Doughnut> doughnuts = Doughnut.getDoughnuts();
 	%>
 	
-	
+	<%
+	    String errorMessage = request.getParameter("error");
+	    if (errorMessage != null) {
+	%>
+	    <div style="color: red; text-align: center; margin: 10px 0;">
+	        <%= errorMessage %>
+	    </div>
+	<%
+	    }
+	%>
 	<div class="M-Container">
 	<%
 		for (Doughnut doughnut : doughnuts) {
@@ -56,10 +65,12 @@
                 <button type="submit" class="nav-button" style="font-size: 1vh;">Add to Cart</button>
             </form>
 		</div>
+		
 	<%
 		}
 		}
 	%>			
 	</div>
+	
 </body>
 </html>
