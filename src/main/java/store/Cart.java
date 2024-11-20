@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.sql.*;
 
 
 @WebServlet("/Cart")
@@ -26,20 +27,48 @@ public class Cart extends HttpServlet {
         }
         
      // Retrieve doughnut ID and quantity from the request
-        int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        try {
+            // Retrieve doughnut ID and quantity from the request
+            int doughnutId = Integer.parseInt(request.getParameter("doughnutId"));
+            int requestedQuantity = Integer.parseInt(request.getParameter("quantity"));
 
-        // Fetch doughnut details based on ID
-        Doughnut selectedDoughnut = Doughnut.getDoughnutById(doughnutId);
-        if (selectedDoughnut == null) {
-            response.sendRedirect("Menu.jsp");
-            return;
+            // Check available quantity in the Trays database
+            int availableQuantity = getAvailableQuantity(doughnutId);
+
+            if (requestedQuantity > availableQuantity) {
+                // Redirect to menu and pass the available quantity as a parameter
+                response.sendRedirect("Menu.jsp?error=Only " + availableQuantity + " donuts of this type are available.");
+            } else {
+                // Add doughnut to cart
+                cart.put(doughnutId, cart.getOrDefault(doughnutId, 0) + requestedQuantity);
+                response.sendRedirect("Menu.jsp");
+            }
+
+        } catch (NumberFormatException e) {
+            response.sendRedirect("Menu.jsp?error=Invalid input. Please try again.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Menu.jsp?error=An error occurred. Please try again later.");
+        }
+    }
+    
+    private int getAvailableQuantity(int doughnutId) throws Exception {
+    	Connection conn = Database.getConnection();
+
+        String query = "SELECT SUM(FreshQty) AS totalAvailable FROM Trays WHERE DoughnutID = ?";
+        int totalAvailable = 0;
+
+        try (conn;
+             PreparedStatement statement = conn.prepareStatement(query)) {
+
+            statement.setInt(1, doughnutId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    totalAvailable = resultSet.getInt("totalAvailable");
+                }
+            }
         }
 
-        // Add doughnut to cart
-        cart.put(doughnutId, quantity);
-
-        // Redirect back to the menu or cart page
-        response.sendRedirect("Menu.jsp");
+        return totalAvailable;
     }
 }
